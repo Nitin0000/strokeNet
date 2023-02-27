@@ -1,0 +1,18 @@
+no-data {
+    .noDataMessage{
+        margin-top: 20%;
+        padding: 10px 40px;
+        text-align: center;
+        color: #ccc
+    }
+    .noDataMessage ion-icon{
+       font-size: 100px;
+    }
+    .noDataMessage h2{
+       line-height: 18px;
+       font-size: 20px;
+    }
+    .noDataMessage p{
+       line-height: 18px;
+    }
+}

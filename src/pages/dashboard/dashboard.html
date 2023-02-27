@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-navbar color="light">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-buttons start left>
+      <button ion-button icon-only color="primary" style="margin-right: 15px;">
+        {{userData.is_hub_user ? 'HUB' : userData.is_spoke_user ? 'SPOKE' : 'CENTER'}}
+      </button>      
+    </ion-buttons>
+
+    <ion-title><img style="width: 130px;" src="assets/imgs/logo-white-back.png"></ion-title>    
+
+    <ion-buttons end right>      
+      <button class="live_now" (click)="updateOnlineStatus()" clear large icon-end ion-button color="primary">
+        <ion-icon [ngClass]="currentOnlineStatus == 'Online' ? 'online' : 'offline'">•</ion-icon> <span>{{currentOnlineStatus}}</span>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list *ngIf="userData.user_role !== 'student'" class="logged_in_user">            
+      <p text-center class="heading_text">What would you like to do today?</p>
+    <ion-row class="quick_action_boxes">
+      
+      <ion-col (click)="gotoPatientsList()">
+        <div class="box">
+          <ion-icon color="lightdark" name="walk"></ion-icon>
+          <p>Manage <br>Patients</p>
+        </div>
+      </ion-col>
+      <ion-col (click)="openAddPatientModal()">
+        <div class="box">
+          <ion-icon color="lightdark" name="add"></ion-icon>
+          <p>Add <br>Patient</p>
+        </div>
+      </ion-col>
+      <ion-col (click)="scanQRCode()">
+        <div class="box">
+          <ion-icon color="lightdark" name="qr-scanner"></ion-icon>
+          <p>Scan <br>QR Code</p>
+        </div>
+      </ion-col>
+      
+    </ion-row>
+    <ion-row class="quick_action_boxes">
+      <ion-col (click)="createCodeStrokeAlert()">
+        <div class="box">
+          <ion-icon color="danger" name="md-megaphone"></ion-icon>
+          <p>Code <br>Stroke</p>
+        </div>
+      </ion-col>
+
+      <ion-col (click)="viewOnlineTeam()">
+        <div class="box">
+          <ion-icon color="lightdark" name="ios-contacts-outline"></ion-icon>
+          <p>Contact<br>Team</p>
+        </div>
+      </ion-col>
+
+      <ion-col (click)="gotoConversations()">
+        <div class="box">
+          <ion-icon color="lightdark" name="ios-chatbubbles-outline"></ion-icon>
+          <p>Chat<br>Conversations</p>
+        </div>
+      </ion-col>
+
+      
+    </ion-row>
+
+    <!-- <ion-item-divider color="primary">Quick Actions</ion-item-divider> -->
+    <!-- <ion-item (click)="gotoPatientsList()">
+      <ion-icon item-end name="arrow-round-forward" color="primary"></ion-icon>
+      <span ion-text color="primary">Manage Patients</span>
+    </ion-item>
+    <ion-item (click)="openAddPatientModal()">
+      <ion-icon item-end name="add" color="primary"></ion-icon>
+      <span ion-text color="primary">Add Patient</span>
+    </ion-item> -->
+    <!-- <ion-item (click)="openCovidCheckListModal()">
+        <ion-icon item-end name="add" color="primary"></ion-icon>
+        <span ion-text color="primary">Open COVID Checklist</span>
+      </ion-item> -->
+  </ion-list>
+
+  <!-- <button ion-button round (click)="startZoomMeeting()" icon-left full color="success">
+    Start Meeting
+  </button> -->
+
+  <ion-list style="margin-top:25px" style="box-shadow: 0px 0px 10px #ddd;">
+    <div *ngFor="let mainPage of dashboardPages">
+      <ion-item (click)="toggleDetails(mainPage)" class="main_item">
+        <ion-icon color="primary" item-right [name]="mainPage.icon"></ion-icon>
+        <span ion-text color="primary">{{mainPage.title}}</span>
+      </ion-item>
+      <ion-list *ngIf="mainPage.showDetails" style="margin-bottom: 10px;">
+        <ion-item (click)="gotoContentPage(item.pageId)" *ngFor="let item of mainPage.subPages" class="sub_item">
+          <ion-icon color="lightdark" item-right name="arrow-round-forward"></ion-icon>
+          <span ion-text color="lightdark">{{item.title}}</span>
+        </ion-item>
+      </ion-list>
+    </div>
+    <!-- <ion-item class="main_item" (click)="gotoContentPage(12)">
+      <ion-icon color="primary" item-right name="arrow-round-forward"></ion-icon>
+      <span ion-text color="primary">The Stroke Review of Literature</span>
+    </ion-item> -->
+  </ion-list>
+
+  <ion-list style="box-shadow: 0px 0px 10px #ddd;">
+    <ion-item class="main_item" (click)="gotoQualityMatrixPage()">
+      <ion-icon color="primary" item-right name="arrow-round-forward"></ion-icon>
+      <span ion-text color="primary">Quality Metrics</span>
+    </ion-item>   
+  </ion-list>
+
+</ion-content>

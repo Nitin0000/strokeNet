@@ -1,0 +1,223 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Basic details</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div class="formsection" *ngIf="basicDetails">
+    <!-- <ion-item>
+      <ion-label color="primary" stacked>Name of the patient
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="basicDetails.name" placeholder="Enter patient name"></ion-input>
+    </ion-item> -->
+    <ion-row style="margin:0px; padding:0px;">
+      <ion-col style="padding:0px;">
+        <ion-item style="border-top-right-radius: 0px;border-bottom-right-radius: 0px;">  
+          <ion-label color="primary" stacked>First name
+            <sup ion-text color="danger">*</sup>
+          </ion-label>
+          <ion-input [(ngModel)]="basicDetails.first_name" type="text" autocomplete="off" autocorrect="off"
+            autocapitalize="off" placeholder="Enter First Name"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col style="padding:0px;">
+        <ion-item style="border-top-left-radius: 0px;border-bottom-left-radius: 0px; padding-bottom: 1px;">
+          <ion-label color="primary" stacked>Last name</ion-label>
+          <ion-input [(ngModel)]="basicDetails.last_name" type="text" autocomplete="off" autocorrect="off"
+            autocapitalize="off" placeholder="Enter Last Name"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style="padding-left: 0px;">
+        <ion-item>
+          <ion-label color="primary" stacked>Date of Birth
+            <sup ion-text color="danger">*</sup>
+          </ion-label>
+          <ion-datetime [(ngModel)]="basicDetails.date_of_birth" placeholder="Date of Birth" displayFormat="DD-MM-YYYY" pickerFormat="DD-MM-YYYY"></ion-datetime>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item class="sex_label_item" style="border:none !important;">
+          <ion-label>Sex
+            <sup ion-text color="danger">*</sup>
+          </ion-label>
+        </ion-item>
+        <ion-select class="sexfield" [(ngModel)]="basicDetails.gender" interface="popover" placeholder="Select">
+          <ion-option value="male">Male</ion-option>
+          <ion-option value="female">Female</ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Date/Time of Admission</ion-label>
+      <ion-datetime (tap)="getCurrentTime()" [(ngModel)]="basicDetails.admission_time" placeholder="Enter DSA Time" displayFormat="DD-MM-YYYY hh:mm a" max="{{currentLocalDate}}" pickerFormat="DD-MM-YYYY hh:mm a"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Contact number</ion-label>
+      <ion-input [(ngModel)]="basicDetails.contact_number" type="tel" placeholder="Enter contact number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Address</ion-label>
+      <ion-input type="text" [(ngModel)]="basicDetails.address" placeholder="Enter patient's home address">
+      </ion-input>
+    </ion-item>
+
+
+    
+
+    <ion-item>
+      <ion-label>Weakness side
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-select interface="popover" [(ngModel)]="basicDetails.weakness_side" placeholder="Select">
+        <ion-option value="left">Left</ion-option>
+        <ion-option value="right">Right</ion-option>
+        <ion-option value="unknown">Unknown</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>
+        Is wakeup stroke?
+      </ion-label>
+      <ion-toggle [(ngModel)]="basicDetails.is_wakeup_stroke"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>
+        In-Hospital stroke?
+      </ion-label>
+      <ion-toggle [(ngModel)]="basicDetails.is_hospital_stroke"></ion-toggle>
+    </ion-item>
+
+    <!-- <ion-item>
+      <ion-label>Facial Deviation
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-select interface="popover" [(ngModel)]="basicDetails.facial_deviation" placeholder="Select">
+        <ion-option value="left">Left</ion-option>
+        <ion-option value="right">Right</ion-option>
+      </ion-select>
+    </ion-item>
+
+
+    <ion-item>
+        <ion-label color="primary" stacked>Handedness</ion-label>       
+        <ion-select [(ngModel)]="basicDetails.handedness" interface="popover" placeholder="Select">
+            <ion-option value="Left">Left</ion-option>
+            <ion-option value="Right">Right</ion-option>
+            <ion-option value="Not Known">Not Known</ion-option>
+          </ion-select>
+    </ion-item> -->
+
+    <ion-item *ngIf="comorbidities && comorbidities.length > 0">
+        <ion-label color="primary" stacked>Co-morbidities</ion-label>        
+        <ion-select multiple="true"  [(ngModel)]="basicDetails.co_morbidities" interface="popover" placeholder="Select">
+          <ion-option value="{{comorbidity.name}}" *ngFor="let comorbidity of comorbidities">{{comorbidity.name}}</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-row>
+      <ion-col style="padding-left: 0px;">
+        <ion-item>
+          <ion-label color="primary" stacked>Body Weight (kgs)</ion-label>
+          <ion-input [(ngModel)]="basicDetails.body_weight" type="tel" placeholder="Enter body weight"></ion-input>
+        </ion-item>
+        </ion-col>
+        <ion-col style="padding-left: 0px;">
+          <ion-item>
+            <ion-label color="primary" stacked>Blood Group</ion-label>
+            <ion-select interface="popover" [(ngModel)]="basicDetails.blood_group" placeholder="Select">
+              <ion-option value="A+">A+</ion-option>
+              <ion-option value="A-">A-</ion-option>
+              <ion-option value="B+">B+</ion-option>
+              <ion-option value="B-">B-</ion-option>
+              <ion-option value="O+">O+</ion-option>
+              <ion-option value="O-">O-</ion-option>
+              <ion-option value="AB+">AB+</ion-option>
+              <ion-option value="AB-">AB-</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label stacked [color]="basicDetails.bp_x > 180 ? 'danger' : 'primary'">
+            SBP
+          </ion-label>
+          <ion-input [disabled]="fixedValues.bp_x" [color]="basicDetails.bp_x > 180 ? 'danger' : 'primary'" [(ngModel)]="basicDetails.bp_x" type="tel" placeholder="Enter SP"></ion-input>
+        </ion-item>
+      </ion-col>     
+      <ion-col>
+        <ion-item>
+          <ion-label stacked [color]="basicDetails.bp_y > 110 ? 'danger' : 'primary'">
+            DBP
+          </ion-label>
+          <ion-input [disabled]="fixedValues.bp_y" [color]="basicDetails.bp_y > 110 ? 'danger' : 'primary'" [(ngModel)]="basicDetails.bp_y" type="tel" placeholder="Enter DP"></ion-input>
+        </ion-item>
+      </ion-col>      
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" stacked>
+            RBS
+          </ion-label>
+          <ion-input [(ngModel)]="basicDetails.rbs" type="tel" placeholder="Enter RBS"></ion-input>      
+        </ion-item>
+      </ion-col>     
+      <ion-col>
+        <ion-item>
+          <ion-label stacked ion-text [color]="basicDetails.inr > 1.7 ? 'danger' : 'primary'">
+            INR
+          </ion-label>
+          <ion-input [color]="basicDetails.inr > 1.7 ? 'danger' : 'primary'" [(ngModel)]="basicDetails.inr" type="number" placeholder="Enter INR(can be points)"></ion-input>
+        </ion-item>
+      </ion-col>      
+    </ion-row>
+
+    <ion-item>
+        <ion-label color="primary"  stacked>Similar episodes in past</ion-label>
+        <ion-select [(ngModel)]="basicDetails.similar_episodes_in_past" interface="popover" placeholder="Select">
+            <ion-option value="Yes">Yes</ion-option>
+            <ion-option value="No">No</ion-option>
+          </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="basicDetails.similar_episodes_in_past == 'Yes'">
+        <ion-label color="primary" stacked>Enter some more details (Similar episodes)</ion-label>
+        <ion-textarea type="text" [(ngModel)]="basicDetails.similar_episodes_in_past_text" placeholder="Enter some more information about past episodes">
+        </ion-textarea>        
+    </ion-item>
+    
+
+    <ion-item>
+        <ion-label color="primary" stacked>Notes</ion-label>
+        <ion-textarea type="text" [(ngModel)]="basicDetails.notes" placeholder="Enter extra information or notes">
+        </ion-textarea>        
+    </ion-item>
+
+    <br>
+    <sup ion-text color="danger">*</sup>
+    <span ion-text color="lightdark">required fields</span>
+    <br>
+    <br>  
+  </div>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar padding>
+    <button ion-button icon-left round full color="dark" (click)="doUpdatePatientBasicData();">
+      Save
+    </button>
+  </ion-toolbar>
+</ion-footer>

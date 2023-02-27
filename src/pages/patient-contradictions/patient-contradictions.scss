@@ -1,0 +1,85 @@
+page-patient-contradictions {
+    ion-footer.nihss_score_footer{
+        padding:0px !important;
+        p{
+            b{
+                font-family: 'Lato Bold';
+                font-weight: bold;
+                font-size: 20px !important;
+            }
+            font-size: 20px;
+            margin:6px;
+            color: #fff;
+            font-family: "Lato Light";            
+        }
+        button.save_button{
+            background: color($colors, dark) !important;
+            color: #fff !important;
+            padding: 20px 30px;
+            text-transform: uppercase !important;
+            font-weight: bold;
+            border-radius: 0px !important;
+        }
+    }
+
+    ion-item.option_title{
+        padding:6px 10px !important;
+        .item-inner{
+            border-bottom: none !important;
+        }
+        border-bottom: 1px solid #eee !important;
+    }
+    ion-list.option_box{
+        border: 1px solid #eee;
+        border-radius: 10px !important;
+    }
+    ion-list {
+        ion-item.item-radio-checked{
+            background: color($colors, primary);
+            ion-label{
+                color: #fff !important;
+            }            
+
+            .radio-ios .radio-checked .radio-inner{
+                border-color: #fff !important;
+            }
+            .radio-md .radio-checked {
+                border-color: #fff !important;
+            }
+            .radio-md .radio-inner{
+                background-color: #fff !important;
+            }
+        }
+        ion-item{
+            .item-inner{
+                border-bottom: none !important;
+            }
+            border-bottom: 1px solid #eee !important;
+            font-family: 'Lato Regular';
+            font-size: 14px !important;
+            ion-note{
+                min-width: 20px;
+                font-weight: bold;
+                font-size: 17px;
+                text-align: center;
+            }
+        }  
+    }
+
+    ion-list.absolute_contradictions{
+        ion-item.item-radio-checked{
+            background: color($colors, danger);
+            ion-label{
+                color: #fff !important;
+            }            
+        }
+    }
+    ion-list.relative_contradictions{
+        ion-item.item-radio-checked{
+            background: color($colors, orange);
+            ion-label{
+                color: #fff !important;
+            }            
+        }
+    }
+}

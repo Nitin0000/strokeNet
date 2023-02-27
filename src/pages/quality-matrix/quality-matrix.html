@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-navbar color="primary">    
+    <ion-title>Quality Metrics</ion-title>
+  </ion-navbar>
+  <ion-toolbar class="sub_header" color="light">
+    <ion-row>
+      <ion-col text-left>
+        <ion-select [(ngModel)]="patientType" interface="popover" (ngModelChange)="onPatientTypeChanged($event)">
+          <ion-option value="all">All Patients</ion-option>          
+          <ion-option value="ischemic">Ischemic</ion-option>     
+          <ion-option value="ivt">IVT</ion-option> 
+        </ion-select>
+      </ion-col>
+      <ion-col text-left style="border-left: 1px solid #eee;">
+        <ion-select [(ngModel)]="timePeriod"  interface="popover" (ngModelChange)="onTimePeriodChanged($event)">
+          <ion-option value="past_one_week">Past one week</ion-option>          
+          <ion-option value="past_one_month">Past one month</ion-option>      
+          <ion-option value="past_six_months">Past six months</ion-option>   
+          <ion-option value="past_one_year">Past one year</ion-option>   
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div padding text-center class="patient_count_box" *ngIf="qualityMatrix && qualityMatrix.total_patients">
+    <h1 >
+      {{qualityMatrix.total_patients}}
+    </h1>
+<p>Total Patients</p>
+  </div>
+
+  <ion-list class="complicationsBox" *ngIf="qualityMatrix && qualityMatrix.averages">
+    <ion-item-divider color="secondary">
+      Median Timings
+    </ion-item-divider>
+
+
+    <ion-item *ngIf="qualityMatrix && qualityMatrix.averages && qualityMatrix.averages.tfso_time && qualityMatrix.averages.tfso_time">
+      TFSO
+      <ion-note item-end color="primary">{{qualityMatrix.averages.tfso_time_text}}</ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="qualityMatrix && qualityMatrix.averages && qualityMatrix.averages.door_to_ct_time && qualityMatrix.averages.door_to_ct_time">
+      Door to CT Time
+      <ion-note item-end color="primary">{{qualityMatrix.averages.door_to_ct_time_text}}</ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="qualityMatrix && qualityMatrix.averages && qualityMatrix.averages.door_to_needle_time && qualityMatrix.averages.door_to_needle_time">
+      Door to Needle Time
+      <ion-note item-end color="primary">{{qualityMatrix.averages.door_to_needle_time_text}}</ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="qualityMatrix && qualityMatrix.averages && qualityMatrix.averages.door_to_groin_puncture && qualityMatrix.averages.door_to_groin_puncture">
+      Door to Groin Puncture
+      <ion-note item-end color="primary">{{qualityMatrix.averages.door_to_groin_puncture_text}}</ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="qualityMatrix && qualityMatrix.averages && qualityMatrix.averages.ct_to_groin_puncture && qualityMatrix.averages.ct_to_groin_puncture">
+      CT to Groin Puncture
+      <ion-note item-end color="primary">{{qualityMatrix.averages.ct_to_groin_puncture_text}}</ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="qualityMatrix && qualityMatrix.averages && qualityMatrix.averages.door_to_hub_mt_completed && qualityMatrix.averages.door_to_hub_mt_completed">
+      Door to MT Completed
+      <ion-note item-end color="primary">{{qualityMatrix.averages.door_to_hub_mt_completed_text}}</ion-note>
+    </ion-item>
+
+    </ion-list>
+
+</ion-content>

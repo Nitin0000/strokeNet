@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{pageTitle ? pageTitle : 'Brain Imaging'}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+  <ion-row>
+    <ion-col>
+      <div class="addImagesSection" (click)="presentImagesActionSheet()">      
+        <ion-icon name="ios-cloud-upload-outline"></ion-icon><br>
+        <h2>
+          Upload Files
+        </h2>
+       
+    </div>
+    </ion-col>
+    <ion-col>
+      <div class="addImagesSection" (click)="presentVideosActionSheet()">      
+        <ion-icon name="ios-videocam-outline"></ion-icon><br>
+        <h2>
+          Record Video
+        </h2>
+        
+    </div>
+    </ion-col>
+  </ion-row>
+    
+
+    <div class="noDataMessage" *ngIf="currentFilesData && currentFilesData.length == 0">
+        <h2>
+          No files found!
+        </h2>
+    </div>
+
+    <div class="items_section">
+        <ion-grid class="items" *ngIf="currentFilesData && currentFilesData.length > 0">
+          <ion-row *ngFor="let images of array_chunk(3, currentFilesData); let i = index;">
+            <ion-col col-4 *ngFor="let image of images; let z = index;">
+              <div class="img">
+                  <div class="deleteButton" (tap)="deleteFile(image.id)">
+                    remove
+                  </div>
+
+                  <img *ngIf="image.file_type !== 'jpg' && image.downloading" (click)="downloadVideo(image)" #myImage src="assets/imgs/downloading.png">
+
+                  <img *ngIf="image.file_type !== 'jpg' && !image.downloaded && !image.downloading" (click)="downloadVideo(image)" #myImage src="assets/imgs/download.png">
+  
+                  <img *ngIf="image.file_type !== 'jpg' && image.downloaded" (click)="downloadVideo(image)" #myImage src="assets/imgs/video.png">
+                  
+                  
+                  <img *ngIf="image.file_type == 'jpg'" (tap)="openImageinModal(i, z)" #myImage [src]="image.file_thumb">     
+
+              </div>
+              <p ion-text color="primary" class="user_role" *ngIf="image.user_role"><small>{{image.user_role}}</small></p>
+              <p class="user_role"><small>{{image.created}}</small></p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+</ion-content>
+<!-- <ion-footer>
+    <ion-toolbar color="light" (click)="presentActionSheet()">
+        <button round ion-button color="success" block>+ Upload a Photo/Video</button>
+      </ion-toolbar>
+</ion-footer> -->
+<!-- ion-long-press [interval]="400" (pressed)="pressed()" (longPressed)="active()" (pressEnded)="released()" -->

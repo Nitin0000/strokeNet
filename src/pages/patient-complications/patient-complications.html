@@ -1,0 +1,249 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Complications</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="formsection" *ngIf="complicationsData"> 
+    
+
+    <ion-list>
+      <ion-item-divider>
+        <ion-label stacked>BedSore</ion-label>
+        <ion-toggle [(ngModel)]="complicationsData.bed_sore"></ion-toggle>
+      </ion-item-divider>
+
+      <ng-container *ngIf="complicationsData.bed_sore">
+          <ion-row>
+            <ion-col col-8> 
+
+              <ion-item>
+                <ion-label color="primary" stacked>Site</ion-label>
+                <ion-input [(ngModel)]="complicationsData.bed_sore_site" type="text" placeholder="Enter site"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label color="primary" stacked>Degree</ion-label>
+                <ion-input [(ngModel)]="complicationsData.bed_sore_degree" type="text" placeholder="Enter degree"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label color="primary" stacked>Duration</ion-label>
+                <ion-input [(ngModel)]="complicationsData.bed_sore_duration" type="text" placeholder="Enter duration"></ion-input>
+              </ion-item>
+
+            </ion-col>
+            <ion-col col-4>
+              <ion-label color="primary" stacked>Photo</ion-label>  
+
+              <div *ngIf="!complicationsData.bed_sore_photo" class="addImagesSection" (click)="presentImagesActionSheet()">      
+                <ion-icon name="ios-cloud-upload-outline"></ion-icon><br>
+                <h2>
+                  Upload File
+                </h2>
+              </div>
+
+              <div *ngIf="complicationsData.bed_sore_photo" (click)="presentImagesActionSheet()">      
+                <img [src]="newUploadedImage ? newUploadedImage : complicationsData.bed_sore_photo_thumb" />
+              </div>
+
+            </ion-col>
+          </ion-row>
+      </ng-container>
+    </ion-list>
+
+
+
+    <ion-list>
+      <ion-item-divider>
+        <ion-label stacked>Aspiration</ion-label>
+        <ion-toggle [(ngModel)]="complicationsData.aspiration"></ion-toggle>
+      </ion-item-divider>
+
+      <ng-container *ngIf="complicationsData.aspiration">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" stacked>Duration</ion-label>
+              <ion-input [(ngModel)]="complicationsData.aspiration_duration" type="text" placeholder="Enter duration"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ng-container>
+
+    </ion-list>
+
+
+    <ion-list>
+      <ion-item-divider>
+        <ion-label stacked>Deep Vein Thormobosis</ion-label>
+        <ion-toggle [(ngModel)]="complicationsData.deep_vein_thormobosis"></ion-toggle>
+      </ion-item-divider>
+
+      <ng-container *ngIf="complicationsData.deep_vein_thormobosis">
+       <ion-row>
+         <ion-col>
+          <ion-item>
+            <ion-label color="primary" stacked>Site</ion-label>
+            <ion-input [(ngModel)]="complicationsData.deep_vein_thormobosis_site" type="text" placeholder="Enter site"></ion-input>
+          </ion-item>
+         </ion-col>
+         <ion-col>
+          <ion-item>
+            <ion-label color="primary" stacked>Duration</ion-label>
+            <ion-input [(ngModel)]="complicationsData.deep_vein_thormobosis_duration" type="text" placeholder="Enter  duration"></ion-input>
+          </ion-item>
+         </ion-col>
+       </ion-row>
+      </ng-container>
+
+    </ion-list>
+
+
+    <ion-list>
+      <ion-item-divider>
+        <ion-label stacked>Frozen Shoulder</ion-label>
+        <ion-toggle [(ngModel)]="complicationsData.frozen_shoulder"></ion-toggle>
+      </ion-item-divider>
+
+      <ng-container *ngIf="complicationsData.frozen_shoulder">
+      
+        <ion-row>
+          <ion-col>
+           <ion-item>
+             <ion-label color="primary" stacked>Site</ion-label>
+             <ion-input [(ngModel)]="complicationsData.frozen_shoulder_site" type="text" placeholder="Enter site"></ion-input>
+           </ion-item>
+          </ion-col>
+          <ion-col>
+           <ion-item>
+             <ion-label color="primary" stacked>Duration</ion-label>
+             <ion-input [(ngModel)]="complicationsData.frozen_shoulder_duration" type="text" placeholder="Enter  duration"></ion-input>
+           </ion-item>
+          </ion-col>
+        </ion-row>
+
+      </ng-container>
+
+    </ion-list>
+
+
+
+    <ion-list>
+      <ion-item-divider>
+        <ion-label stacked>Contracture</ion-label>
+        <ion-toggle [(ngModel)]="complicationsData.contracture"></ion-toggle>
+      </ion-item-divider>
+      <ng-container *ngIf="complicationsData.contracture">
+        
+        <ion-row>
+          <ion-col>
+           <ion-item>
+             <ion-label color="primary" stacked>Site</ion-label>
+             <ion-input [(ngModel)]="complicationsData.contracture_site" type="text" placeholder="Enter site"></ion-input>
+           </ion-item>
+          </ion-col>
+          <ion-col>
+           <ion-item>
+             <ion-label color="primary" stacked>Duration</ion-label>
+             <ion-input [(ngModel)]="complicationsData.contracture_duration" type="text" placeholder="Enter  duration"></ion-input>
+           </ion-item>
+          </ion-col>
+        </ion-row>
+
+  
+      </ng-container>
+
+    </ion-list>
+
+
+
+    <ion-list>
+      <ion-item-divider>
+        <ion-label stacked>Spasticity</ion-label>
+        <ion-toggle [(ngModel)]="complicationsData.spasticity"></ion-toggle>
+      </ion-item-divider>
+      <ng-container *ngIf="complicationsData.spasticity">
+        
+        <ion-row>
+          <ion-col>
+           <ion-item>
+             <ion-label color="primary" stacked>Site</ion-label>
+             <ion-input [(ngModel)]="complicationsData.spasticity_site" type="text" placeholder="Enter site"></ion-input>
+           </ion-item>
+          </ion-col>
+          <ion-col>
+           <ion-item>
+             <ion-label color="primary" stacked>Duration</ion-label>
+             <ion-input [(ngModel)]="complicationsData.spasticity_duration" type="text" placeholder="Enter  duration"></ion-input>
+           </ion-item>
+          </ion-col>
+        </ion-row>
+  
+      </ng-container>
+
+    </ion-list>
+
+
+
+    <ion-list>
+      <ion-item-divider>
+        <ion-label stacked>Catheter Associated Urinary Tract Infection</ion-label>
+        <ion-toggle [(ngModel)]="complicationsData.cauti"></ion-toggle>
+      </ion-item-divider>
+      <ng-container *ngIf="complicationsData.cauti">
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" stacked>Duration</ion-label>
+              <ion-input [(ngModel)]="complicationsData.cauti_duration" type="text" placeholder="Enter duration"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+  
+      </ng-container>
+
+    </ion-list>
+
+
+    <ion-list>
+      <ion-item-divider>
+        <ion-label stacked>Others</ion-label>
+        <ion-toggle [(ngModel)]="complicationsData.others"></ion-toggle>
+      </ion-item-divider>
+      <ng-container *ngIf="complicationsData.others">
+        
+        <ion-row>
+          <ion-col>
+           <ion-item>
+             <ion-label color="primary" stacked>Information</ion-label>
+             <ion-input [(ngModel)]="complicationsData.others_information" type="text" placeholder="Enter site"></ion-input>
+           </ion-item>
+          </ion-col>
+          <ion-col>
+           <ion-item>
+             <ion-label color="primary" stacked>Duration</ion-label>
+             <ion-input [(ngModel)]="complicationsData.others_duration" type="text" placeholder="Enter  duration"></ion-input>
+           </ion-item>
+          </ion-col>
+        </ion-row>
+
+  
+      </ng-container>
+
+    </ion-list>
+  
+    <div padding>
+        <br>
+        <sup ion-text color="danger">*</sup>
+        <span ion-text color="lightdark">required fields</span>
+        <br>
+        <br>
+        <button ion-button round icon-left full color="primary" (click)="doUpdatePatientComplicationsData()">
+          Save
+        </button>
+    </div>
+    
+  </div>
+</ion-content>

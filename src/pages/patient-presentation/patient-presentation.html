@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Presentation</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+  <div class="formsection" *ngIf="presentationData"> 
+
+    
+
+    <ion-label style="text-transform: uppercase; font-size: 13px; font-weight: bold; color: darkgrey; margin-bottom: 0px;">Power of Limbs</ion-label>
+
+    <ion-row>
+      <ion-col>
+
+        <ion-item class="sex_label_item" style="border:none !important;">
+          <ion-label>Right (UL)
+            <sup ion-text color="danger">*</sup>
+          </ion-label>
+        </ion-item>
+        <ion-select class="sexfield" [(ngModel)]="presentationData.pol_right_ul" interface="popover"
+          placeholder="Select">
+          <ion-option value="0/5">0/5</ion-option>
+          <ion-option value="1/5">1/5</ion-option>
+          <ion-option value="2/5">2/5</ion-option>
+          <ion-option value="3/5">3/5</ion-option>
+          <ion-option value="4/5">4/5</ion-option>
+        </ion-select>
+
+
+      </ion-col>
+      <ion-col>
+
+        <ion-item class="sex_label_item" style="border:none !important;">
+          <ion-label>Left (UL)
+            <sup ion-text color="danger">*</sup>
+          </ion-label>
+        </ion-item>
+        <ion-select class="sexfield" [(ngModel)]="presentationData.pol_left_ul" interface="popover"
+          placeholder="Select">
+          <ion-option value="0/5">0/5</ion-option>
+          <ion-option value="1/5">1/5</ion-option>
+          <ion-option value="2/5">2/5</ion-option>
+          <ion-option value="3/5">3/5</ion-option>
+          <ion-option value="4/5">4/5</ion-option>
+        </ion-select>
+
+
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+
+
+        <ion-item class="sex_label_item" style="border:none !important;">
+          <ion-label>Right (LL)
+            <sup ion-text color="danger">*</sup>
+          </ion-label>
+        </ion-item>
+        <ion-select class="sexfield" [(ngModel)]="presentationData.pol_right_ll" interface="popover"
+          placeholder="Select">
+          <ion-option value="0/5">0/5</ion-option>
+          <ion-option value="1/5">1/5</ion-option>
+          <ion-option value="2/5">2/5</ion-option>
+          <ion-option value="3/5">3/5</ion-option>
+          <ion-option value="4/5">4/5</ion-option>
+        </ion-select>
+
+      </ion-col>
+      <ion-col>
+
+        <ion-item class="sex_label_item" style="border:none !important;">
+          <ion-label>Left (LL)
+            <sup ion-text color="danger">*</sup>
+          </ion-label>
+        </ion-item>
+        <ion-select class="sexfield" [(ngModel)]="presentationData.pol_left_ll" interface="popover"
+          placeholder="Select">
+          <ion-option value="0/5">0/5</ion-option>
+          <ion-option value="1/5">1/5</ion-option>
+          <ion-option value="2/5">2/5</ion-option>
+          <ion-option value="3/5">3/5</ion-option>
+          <ion-option value="4/5">4/5</ion-option>
+        </ion-select>
+
+      </ion-col>
+    </ion-row>
+
+
+    <ion-item>
+      <ion-label>Loss of consiousness (LOC)
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-select interface="popover" [(ngModel)]="presentationData.loc" placeholder="Select">
+        <ion-option value="no">No</ion-option>
+        <ion-option value="yes">Yes</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <br>
+    <sup ion-text color="danger">*</sup>
+    <span ion-text color="lightdark">required fields</span>
+    <br>
+    <br>
+    <button ion-button round icon-left full color="primary" (click)="doUpdatePatientPresentationData()">
+      Save
+    </button>
+  </div>
+</ion-content>

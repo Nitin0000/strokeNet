@@ -1,0 +1,54 @@
+page-conversations {
+    .header-md .toolbar-md.filter_header{
+        max-height: 44px !important; min-height: 44px !important; padding: 0px !important;
+    }
+    .header-ios .toolbar-ios.filter_header{
+        max-height: 44px !important; min-height: 44px !important; padding: 0px !important; border-top: 1px solid #ccc !important;
+    }
+
+    ion-item.not_read_background{
+        background: #f8ffed !important;
+    }
+    .buttonsection-left{
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        border-right: 1px solid #eee;
+        font-size: 15px;
+        color: #9B9B9B;
+        text-align: center;
+    }
+    p.message_bold{
+        font-weight: bold !important;
+    }
+    
+    .buttonsection-left.selected{
+        font-size: 15px;
+        color: color($colors, primary);
+        font-weight: bold;
+         overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+       
+    .buttonsection-right{
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        font-size: 15px;
+        color: #9B9B9B; 
+        text-align: center;
+    }
+    
+    .buttonsection-right.selected{
+        font-size: 15px;
+        color: color($colors, primary);
+        font-weight: bold;
+         overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    
+    .buttonsection-left ion-icon,  .buttonsection-right ion-icon{
+        font-size: 24px;
+        line-height: 20px;
+    }
+}

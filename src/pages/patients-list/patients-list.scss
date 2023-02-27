@@ -1,0 +1,92 @@
+page-patients-list {
+    
+    .wider-popover .popover-content {
+        width: 100% !important; //or w/e width
+     }
+
+    .patient_count_box{
+        text-align: center;
+        h1{
+            font-size: 40px;
+            font-weight: bold;
+            color: color($colors, primary);
+        }
+    }
+
+    .sub_header{
+        ion-col{
+            font-weight: bold;
+        }
+    }
+
+    ion-select{
+        width:100% !important;
+        max-width: 100% !important;
+        color: color($colors, "primary") !important;
+        font-family: 'Lato Bold';
+        font-size: 15px;
+        text-align: center;
+        border:1px solid #ddd;
+    }
+
+    ion-content {
+        background-color: #fff !important;
+      }
+    button.live_now{
+        ion-icon.online{    
+            color: greenyellow;                
+            font-size: 40px;         
+        }  
+        ion-icon.offline{    
+            color: lighten(color($colors, primary), 9%);                
+            font-size: 40px;         
+        }       
+        span{
+            font-size: 16px !important;
+        }
+    }
+
+
+.searchBar{
+    background: #fff; margin:10px; width: 95%; border:1px solid #ddd; border-radius: 20px;
+}
+
+    ion-card.patient_info{
+        box-shadow: none !important;
+        border:0px solid #eee;
+        border-radius: 0px;
+        margin: 0px !important;
+        width: 100%;
+        border-bottom: 1px solid #ddd !important;
+
+        ion-item{
+            ion-avatar{
+                border-radius: 0px !important;
+                height: 40px;
+                width: 40px;
+            }
+            border: none !important;
+            .item-inner{
+                border: none !important;
+            }
+            ion-icon.update_icon{
+                font-size: 30px !important;
+                margin-right: 15px !important;
+            }
+        }
+        ion-row.custom_buttons{
+            border-top: 1px solid #eee !important;
+            background: #f4f4f4;
+            ion-col{
+                text-align: center !important;
+                text-transform: uppercase !important;
+                color: color($colors, lightdark);
+                padding: 10px !important;
+                font-weight: bold;
+            }
+            ion-col.border-right{
+                border-right: 1px solid #eee;
+            }
+        }
+    }
+}

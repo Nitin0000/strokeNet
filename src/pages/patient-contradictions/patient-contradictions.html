@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar color="primary">   
+    <ion-buttons end right>
+      <button (click)="closeModal()" clear large icon-end ion-button color="light">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>IVT Checklist</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="nihss_items">
+    <div class="nihss_item" *ngFor="let type of contradictions; let i = index">
+      <ion-item class="option_title" text-wrap text-center>
+        <h2 ion-text color="dark">{{type.label_en}}</h2>
+      </ion-item>
+      <ion-list class="option_box {{type.contraction_type}}" >
+        <ion-item text-wrap *ngFor="let option of type.options; let z = index">
+
+          <ion-label>{{option.label}}</ion-label>
+          <!-- <ion-icon *ngIf="!contradictions[i]['options'][z]['checked']" style="margin-right: -22px;" item-end name="close"></ion-icon>  -->
+
+          <ion-radio (ionSelect)="selectContradictionOption(i, z, option.name, option.points, type.contraction_type)" [checked]="contradictions[i]['options'][z]['checked']">           
+          </ion-radio>
+
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="nihss_score_footer">
+
+  <ion-toolbar [color]="ivt_eligible ? 'orange' : ivt_ineligible ? 'danger' : 'primary'">
+    <p>
+      <b>IVT {{ivt_ineligible ? 'Ineligbile' : 'Eligible'}}</b>
+    </p>
+   
+    <ion-buttons end>
+      <button class="save_button" (click)="saveContradictionsScore()" ion-button color="dark">
+        Save
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+  
+</ion-footer>

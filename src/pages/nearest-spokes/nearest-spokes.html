@@ -1,0 +1,22 @@
+<ion-toolbar color="primary">
+  <ion-buttons end right>
+      <button (click)="closeModal()" clear large icon-end ion-button color="light">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+<ion-title>Choose a Hospital/Center</ion-title>
+</ion-toolbar>
+<ion-content>
+
+  <ion-list style="margin-top: 70px;">
+    <p text-center>Tap on one of the center below to transfer the patient.</p>
+    <ion-item (click)="chooseCenterAndTransit(center.id)" *ngFor="let center of centers">
+      <p ion-text color="primary" style="font-size: 18px;"><b>{{center.center_name}}</b></p>
+      <p>{{center.short_name}}, {{center.center_location}}</p>
+      <button *ngIf="center.is_hub == 'yes'" ion-button clear item-end>Hub</button>
+    </ion-item>
+
+  </ion-list>
+
+
+</ion-content>

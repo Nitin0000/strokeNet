@@ -1,0 +1,347 @@
+page-patient-detail {
+
+    ion-slides.slidesSection{
+        padding-top: 10px;
+        div.update_box{
+            font-size: 16px  !important;
+
+            div.left_section{
+                width: 10%;
+                float:left;
+                text-align: center;
+                padding-top: 15px; 
+                text-align: center !important               
+            }
+            div.right_section{
+                width: 90%;
+                float:right;
+                text-align: left !important;
+            }
+            span.covid_status{
+                height: 40px !important;
+                margin-right: 10px;
+            }           
+        }
+    }
+    .alert_danger{
+        text-align: left;
+        background: #efcece;
+        border: 1px solid color($colors, danger);
+        padding: 10px;
+        color: color($colors, danger);
+        border-radius: 10px;
+        font-size: 15px;
+        text-align: center;
+        ion-icon{
+            float:right;
+            margin-right:10px;
+            margin-left: 20px;
+            margin-top: 10px;
+            font-size: 20px;
+        }
+        .blinking{
+            color: color($colors, danger);
+            animation: blink 1.2s linear infinite;    
+        }
+        @keyframes blink{
+            0%{opacity: 0;}
+            50%{opacity: .3;}
+            100%{opacity: 1;}
+        }
+    }
+    .alert_success{
+        text-align: left;
+        background: #bfffca;
+        border: 1px solid #249e39;
+        padding: 10px;
+        color: #333333;
+        border-radius: 10px;
+        font-size: 15px;
+        text-align: center;
+        ion-icon{
+            float:right;
+            margin-right:10px;
+            margin-left: 20px;
+            margin-top: 10px;
+            font-size: 20px;
+        }
+        .blinking{
+            color: color($colors, danger);
+            animation: blink 1.2s linear infinite;    
+        }
+        @keyframes blink{
+            0%{opacity: 0;}
+            50%{opacity: .3;}
+            100%{opacity: 1;}
+        }
+    }
+
+    .alert_orange{
+        text-align: left;
+        background: #ffdeb3;
+        border: 1px solid #fc9003;
+        padding: 10px;
+        color: #333333;
+        border-radius: 10px;
+        font-size: 15px;
+        text-align: center;
+        ion-icon{
+            float:right;
+            margin-right:10px;
+            margin-left: 20px;
+            margin-top: 10px;
+            font-size: 20px;
+        }
+        .blinking{
+            color: color($colors, danger);
+            animation: blink 1.2s linear infinite;    
+        }
+        @keyframes blink{
+            0%{opacity: 0;}
+            50%{opacity: .3;}
+            100%{opacity: 1;}
+        }
+    }
+
+    div.message_for_radiodiagnosis_people{
+        margin: 20px;
+        margin-top:10px;
+        margin-bottom: -20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 10px;  
+        background: #fff;
+        margin-bottom: 20px;
+        h3{
+            color: color($colors, primary);
+        }
+        p{
+            color: #333;
+        }   
+    }
+
+    
+    div.patient_info{
+        background: #48486d !important;
+        text-align: center !important;
+        padding-top: 5px;
+        padding-bottom: 20px;
+
+        h1.covid_status{
+            font-size: 50px;
+            margin:0px !important;
+            padding:0px !important;
+            margin-top: -20px !important;
+        }
+        h2{
+            font-size: 27px;
+            text-shadow: 0px 0px 2px #000;
+            line-height: 10px;
+        }
+        p.patient_age_gender{
+            font-size: 14px !important;
+            margin: 0px;
+        }
+        p.last_updated{
+            font-size: 15px !important;
+            margin: 0px;
+        }
+
+        .icons{
+            float: right;
+            margin-right: 10px;
+            font-size: 30px;
+        }
+
+        .match_countdown{
+            padding-top:5px;
+            text-align: center;
+            color : color($colors, "light");       
+            p{
+                padding: 0px;
+                margin: 0px;
+            }     
+            h2{
+                margin: 0px;
+                margin-top: 15px;
+                font-size: 25px;
+                line-height: 45px;
+                text-shadow: 0px 0px 4px #333;
+            }
+        }
+
+        .div_top_btns{
+            float: left;
+            width: 100%;
+            min-height: 40px;
+            margin-bottom: 20px;
+            margin-top: 10px auto;
+            padding: 15px;
+            text-align: center !important;
+            padding-left: 40px;
+            
+            .view_summary_btn{            
+                font-size: 13px;
+                text-transform: uppercase;
+                background: #000;
+                min-width: 130px;
+                max-width: 130px;
+                border-radius: 20px;
+                color: #fff;
+                padding: 5px;
+                font-weight: bold;     
+                float: left;   
+                margin-right: 20px;
+            }
+    
+            .view_qr_code_btn{            
+                font-size: 13px;
+                text-transform: uppercase;
+                background: color($colors, success);
+                min-width: 130px;
+                max-width: 130px;
+                border-radius: 20px;
+                color: #fff;
+                padding: 5px;
+                font-weight: bold;   
+                float: left;
+            }
+        }
+        
+
+        
+
+    }
+   
+
+    ion-list.menu_list{
+        ion-item-divider{
+            margin-bottom: 10px;
+        }
+        ion-list-header{
+            background: #f5f5f5 !important;
+            text-transform: uppercase !important;
+            color: color($colors, secondary) !important;
+            font-weight: bold !important;
+        }
+        ion-item{
+            .item-inner{
+                border-bottom: none !important;
+            }
+            border-bottom: 1px solid #eee !important;
+            font-family: 'Lato Regular';
+            color: color($colors, lightdark);
+    
+            ion-note{
+                min-width: 20px;
+                font-weight: bold;
+                font-size: 17px;
+                text-align: center;
+            }
+        }  
+    }
+
+    ion-list.complicationsBox{
+        ion-item-divider{
+            margin-bottom: 10px;
+        }
+        ion-row{
+            padding:0px !important;
+            margin:0px !important;            
+            ion-col{
+                padding:0px !important;
+                margin:0px !important;                
+            }
+        }
+        ion-list-header{
+            background: #f5f5f5 !important;
+            text-transform: uppercase !important;
+            color: color($colors, secondary) !important;
+            font-weight: bold !important;
+        }
+        ion-item{
+            .item-inner{
+                border-bottom: none !important;
+            }
+            border-bottom: 0px solid #eee !important;
+            font-family: 'Lato Regular';
+            color: color($colors, lightdark);
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            padding-left: 10px !important;
+            margin-bottom: 0px !important;
+            margin:0px !important;
+            ion-note{
+                min-width: 20px;
+                font-weight: bold;
+                font-size: 17px;
+                text-align: center;
+            }
+        }  
+    }
+
+    .noDataMessage{
+        padding: 10px 20px;
+        padding-top: 40px;
+        text-align: center;
+        color: #ccc;
+        margin-bottom: 30px;
+    }
+    .noDataMessage ion-icon{
+       font-size: 90px;
+    }
+    .noDataMessage h2{
+       line-height: 18px;
+       font-size: 20px;
+       margin: 0px;
+       margin-top: 10px;
+       font-family: 'Lato Regular';
+       font-weight: normal;
+    }
+    .noDataMessage p{
+       line-height: 18px;
+    }
+    ion-grid.items{
+        padding:0px !important;
+        margin:0px !important;
+        ion-row{
+            margin-bottom: 5px;
+        }
+        ion-col{
+            padding:5px !important;
+            overflow: hidden;
+        }
+        p.user_role{
+            text-align: center;
+            margin: 0px;
+        }
+        .img{
+            min-height: 85px;
+            max-height: 85px;            
+            padding:0px !important;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            text-align: center;
+            img{
+                min-height: 87px;
+                max-height: 87px;
+                width:100%;
+            }
+        }
+    }
+    
+
+    ion-list.covidData{
+        ion-item.option_title{
+            padding:6px 10px !important;
+            .item-inner{
+                border-bottom: none !important;
+            }
+            border-bottom: 1px solid #eee !important;
+        }
+        ion-list.option_box{
+            border: 1px solid #eee;
+            border-radius: 10px !important;
+        }
+    }
+}

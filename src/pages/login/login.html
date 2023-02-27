@@ -1,0 +1,348 @@
+<ion-content [ngSwitch]="currentSection">
+  <div class="logo_image">
+    <img src="assets/imgs/logo-dark-back.png" />
+  </div>
+
+  <div class="formsection" *ngSwitchCase="'login'" style="margin-top: 40px">
+    <div class="text_top">Login</div>
+
+    <ion-item>
+      <ion-icon color="lightdark" item-left name="ios-mail-outline"></ion-icon>
+      <ion-input
+        [(ngModel)]="loginData.email_address"
+        type="email"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        placeholder="Email address"
+      ></ion-input>
+    </ion-item>
+    <br />
+    <ion-item style="margin-top: -1px">
+      <ion-icon color="lightdark" item-left name="ios-eye-outline"></ion-icon>
+      <ion-input
+        [(ngModel)]="loginData.password"
+        type="password"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        placeholder="Password"
+      ></ion-input>
+    </ion-item>
+    <br />
+    <button
+      style="margin-top: 0px"
+      ion-button
+      color="success"
+      full
+      block
+      round
+      large
+      (click)="doLogin()"
+    >
+      Login
+    </button>
+    <div (click)="showSection('forgot_password')" class="forgot_pass">
+      Forgot Password?
+    </div>
+
+    <div text-center padding ion-text color="light" style="padding: 5px">
+      OR
+    </div>
+    <button
+      ion-button
+      color="primary"
+      (click)="showSection('mobile_login')"
+      full
+      large
+      block
+      round
+    >
+      Login using Mobile
+    </button>
+
+    <div
+      text-center
+      padding
+      ion-text
+      color="light"
+      style="margin-bottom: -10px; margin-top: 50px"
+    >
+      Don't have an account?
+    </div>
+    <button
+      ion-button
+      color="light"
+      (click)="showSection('register')"
+      full
+      block
+      round
+      large
+    >
+      Create Account
+    </button>
+  </div>
+
+  <div class="formsection" *ngSwitchCase="'mobile_login'">
+    <br /><br /><br />
+    <div class="text_top">Login using Mobile Number</div>
+
+    <ion-item>
+      <ion-icon color="lightdark" item-left name="ios-mail-outline"></ion-icon>
+      <ion-input
+        [(ngModel)]="registerData.phone_number"
+        type="tel"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        placeholder="Mobile Number (w/o country code)"
+      ></ion-input>
+    </ion-item>
+
+    <br />
+    <button
+      style="margin-top: 0px"
+      ion-button
+      color="success"
+      large
+      full
+      block
+      round
+      (click)="sendOTP()"
+    >
+      Send OTP
+    </button>
+
+    <div text-center (click)="showSection('login')" class="forgot_pass">
+      Back to <b ion-text color="light">Login</b>
+    </div>
+  </div>
+
+  <div class="formsection" *ngSwitchCase="'register'">
+    <div class="text_top">Register</div>
+
+    <ion-row class="nameField" style="margin: 0px; margin-bottom: 20px">
+      <ion-col style="padding: 0px">
+        <ion-item
+          style="
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+            padding-bottom: 1px;
+          "
+        >
+          <ion-icon
+            style="margin: 0px; padding: 0px; margin-right: 5px"
+            color="lightdark"
+            item-left
+            name="ios-contact-outline"
+          ></ion-icon>
+          <ion-input
+            [(ngModel)]="registerData.first_name"
+            type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            placeholder="First Name*"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col style="padding: 0px">
+        <ion-item
+          style="
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+            padding-bottom: 1px;
+          "
+        >
+          <ion-input
+            [(ngModel)]="registerData.last_name"
+            type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            placeholder="Last Name*"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-item style="margin-top: -1px">
+      <ion-icon color="lightdark" item-left name="ios-mail-outline"></ion-icon>
+      <ion-input
+        [(ngModel)]="registerData.email_address"
+        type="email"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        placeholder="Email address*"
+      ></ion-input>
+    </ion-item>
+    <br />
+    <ion-item style="margin-top: -1px">
+      <ion-icon
+        color="lightdark"
+        item-left
+        name="ios-phone-portrait-outline"
+      ></ion-icon>
+      <ion-input
+        [(ngModel)]="registerData.phone_number"
+        type="tel"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        placeholder="Mobile Number*"
+      ></ion-input>
+    </ion-item>
+    <br />
+    <ion-item style="margin-top: -1px">
+      <ion-icon color="lightdark" item-left name="ios-eye-outline"></ion-icon>
+      <ion-input
+        [(ngModel)]="registerData.password"
+        type="password"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        placeholder="Password*"
+      ></ion-input>
+    </ion-item>
+
+    <br />
+    <ion-item style="margin-top: -1px">
+      <ion-icon color="lightdark" item-left name="ios-home-outline"></ion-icon>
+      <ion-label
+        >Hub
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-select
+        style="max-width: 100%"
+        [(ngModel)]="registerData.hub_id"
+        placeholder="Choose a hub"
+      >
+        <ion-option value="{{hub.id}}" *ngFor="let hub of hubs"
+          >{{hub.center_name}}</ion-option
+        >
+      </ion-select>
+    </ion-item>
+
+    <br *ngIf="registerData.hub_id" />
+    <ion-item style="margin-top: -1px" *ngIf="registerData.hub_id">
+      <ion-icon color="lightdark" item-left name="ios-home-outline"></ion-icon>
+      <ion-label
+        >Center
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-select
+        style="max-width: 100%"
+        [(ngModel)]="registerData.center_id"
+        placeholder="Choose a center"
+      >
+        <ng-container *ngFor="let center of centers">
+          <ion-option
+            *ngIf="center.main_hub == registerData.hub_id || center.id == registerData.hub_id"
+            value="{{center.id}}"
+            >{{center.center_name}}</ion-option
+          >
+        </ng-container>
+      </ion-select>
+    </ion-item>
+
+    <br *ngIf="registerData.center_id" />
+
+    <ion-item style="margin-top: -1px" *ngIf="registerData.center_id">
+      <ion-icon
+        color="lightdark"
+        item-left
+        name="ios-contacts-outline"
+      ></ion-icon>
+      <ion-label
+        >Department
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-select
+        style="max-width: 100%"
+        (ionChange)="setRoles()"
+        [(ngModel)]="currentDepartment"
+        placeholder="Choose a role"
+      >
+        <ion-option
+          [value]="department"
+          *ngFor="let department of globalSettings.departments"
+          >{{department.name}}</ion-option
+        >
+      </ion-select>
+    </ion-item>
+
+    <br />
+    <ion-item
+      style="margin-top: -1px"
+      *ngIf="currentRoles && currentRoles.length > 0"
+    >
+      <ion-icon color="lightdark" item-left name="ios-medal-outline"></ion-icon>
+      <ion-label
+        >Role
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-select
+        [disabled]="!registerData.user_department"
+        style="max-width: 100%"
+        [(ngModel)]="registerData.user_role"
+        placeholder="Choose a role"
+      >
+        <ion-option value="{{role.value}}" *ngFor="let role of currentRoles"
+          >{{role.name}}</ion-option
+        >
+      </ion-select>
+    </ion-item>
+
+    <br />
+    <button
+      style="margin-top: 0px"
+      ion-button
+      color="success"
+      large
+      block
+      round
+      (click)="sendOTP()"
+    >
+      Register
+    </button>
+    <div text-center (click)="showSection('login')" class="forgot_pass">
+      Already have an account? <b ion-text color="light">Login</b>
+    </div>
+  </div>
+
+  <div
+    class="formsection"
+    *ngSwitchCase="'forgot_password'"
+    style="margin-top: 60px"
+  >
+    <div class="text_top">Forgot Password</div>
+    <ion-item>
+      <ion-icon color="lightdark" item-left name="ios-mail-outline"></ion-icon>
+      <ion-input
+        [(ngModel)]="forgotPasswordData.email_address"
+        type="email"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        placeholder="Email address"
+      ></ion-input>
+    </ion-item>
+    <br />
+    <button
+      style="margin-top: 0px"
+      ion-button
+      color="success"
+      block
+      round
+      large
+      (click)="doForgotPassword()"
+    >
+      Send Password
+    </button>
+
+    <div text-center (click)="showSection('login')" class="forgot_pass">
+      Back to <b ion-text color="light">Login</b>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-menu [content]="content" class="sidemenuData">
+  <ion-content>
+    <ion-grid class="userinfo" *ngIf="userData">
+      <ion-row>
+        <ion-col>
+          <h1 style="margin-top: 5px; margin-bottom: 5px;">{{userData.fullname}}</h1>
+          <p style="margin:2px; font-size: 13px;" *ngIf="userData.user_role" ion-text color="dark">{{userData.user_role}}</p>
+          <p style="margin:2px; font-size: 11px;" *ngIf="userData.center_id && userData.center_id.center_name" ion-text color="lightdark">{{userData.center_id.center_name}}, {{userData.center_id.center_location}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon style="color: #ddd" item-left name="{{p.icon}}"></ion-icon>
+        {{p.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+
+  
+  <ion-footer>
+    <ion-navbar color="primary" (click)="logOut()">
+      <ion-title>Logout</ion-title>
+    </ion-navbar>
+  </ion-footer>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

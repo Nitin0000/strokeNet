@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>NIHSS Calculator</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+  <div class="nihss_items">
+
+    <div class="nihss_item" *ngFor="let type of nihss_default_values; let i = index">
+
+      <ion-item class="option_title">
+        <h2 ion-text color="primary">{{type.label_en}}</h2>
+      </ion-item>
+
+      <ion-list class="option_box" inset radio-group>
+        <ion-item text-wrap *ngFor="let option of type.options; let z = index">
+          <ion-note item-start>{{option.points > 0 ? '+' : ''}}{{option.points}}</ion-note>
+          <ion-label>{{option.label}}</ion-label>
+          <ion-radio (ionSelect)="selectNIHSSOption(i, option.name, option.points)" [checked]="type.selected_option == option.name"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="nihss_score_footer">
+  <ion-toolbar color="success">
+    <p>
+      <b>{{total_calculated_points}}</b> points
+    </p>
+    <ion-buttons end>
+      <button class="save_button" (click)="saveNIHSSScore()" ion-button color="successdark">
+        Save
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

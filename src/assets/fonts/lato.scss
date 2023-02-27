@@ -1,0 +1,51 @@
+$icomoon-font-path: $font-path !default;
+
+@font-face {
+    font-family: 'Lato Black';
+    src: url('#{$icomoon-font-path}/Lato/Lato-Black.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato Black Italic';
+    src: url('#{$icomoon-font-path}/Lato/Lato-BlackItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato Bold';
+    src: url('#{$icomoon-font-path}/Lato/Lato-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato Bold Italic';
+    src: url('#{$icomoon-font-path}/Lato/Lato-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato Hairline';
+    src: url('#{$icomoon-font-path}/Lato/Lato-Hairline.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato Hairline Italic';
+    src: url('#{$icomoon-font-path}/Lato/Lato-HairlineItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato Italic';
+    src: url('#{$icomoon-font-path}/Lato/Lato-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato Light';
+    src: url('#{$icomoon-font-path}/Lato/Lato-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato Light Italic';
+    src: url('#{$icomoon-font-path}/Lato/Lato-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato Regular';
+    src: url('#{$icomoon-font-path}/Lato/Lato-Regular.ttf') format('truetype');
+}

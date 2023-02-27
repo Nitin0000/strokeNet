@@ -1,0 +1,90 @@
+page-patient-scan-files {
+    .noDataMessage{
+        padding: 10px 20px;
+        padding-top: 50px;
+        text-align: center;
+        color: #ccc;
+        margin-bottom: 50px;
+    }
+    .noDataMessage ion-icon{
+       font-size: 90px;
+    }
+    .noDataMessage h2{
+       line-height: 18px;
+       font-size: 20px;
+       margin: 0px;
+       margin-top: 10px;
+       font-family: 'Lato Regular';
+       font-weight: normal;
+    }
+    .noDataMessage p{
+       line-height: 18px;
+    }
+    ion-grid.items{
+        padding:0px !important;
+        margin:0px !important;
+        ion-row{
+            margin-bottom: 5px;
+        }
+        ion-col{
+            padding:5px !important;
+            overflow: hidden;
+        }
+        p.user_role{
+            text-align: center;
+            margin: 0px;
+        }
+        .img{
+            min-height: 85px;
+            max-height: 85px;            
+            padding:0px !important;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            text-align: center;
+            position: relative;
+
+            .deleteButton{
+                position: absolute;
+                right: 0px;
+                bottom:-4px;
+                z-index: 100000;
+                background: red;        
+                width:100%;        
+                font-weight: bold;
+                text-transform: uppercase;
+                color: white;padding-left: 10px; padding-right: 10px;
+            }
+            
+            img{
+                min-height: 87px;
+                max-height: 87px;
+                width:100%;
+            }
+        }
+    }
+
+    .addImagesSection{        
+        border:1px solid #ccc;
+        border-radius: 10px;        
+        text-align: center;
+        padding: 10px;
+        padding-bottom: 20px;
+        color: #ccc;
+        margin-top: 0px;
+        margin-bottom: 20px;
+         ion-icon{
+            font-size: 70px;
+         }
+         h2{
+            line-height: 18px;
+            font-size: 20px;
+            margin:0px;
+         }
+         p{
+            line-height: 18px;
+            font-size: 11px;
+            width: 80%;
+            margin: 10px auto;
+         }
+    }   
+}

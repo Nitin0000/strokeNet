@@ -1,0 +1,141 @@
+page-login {
+  ion-content{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7c7ca3+0,48486d+100 */
+    background: #7c7ca3; /* Old browsers */
+    background: -moz-linear-gradient(top, #7c7ca3 0%, #48486d 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #7c7ca3 0%,#48486d 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #7c7ca3 0%,#48486d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7c7ca3', endColorstr='#48486d',GradientType=0 ); /* IE6-9 */
+  }
+
+  
+  .logo_image {
+    margin-top: 15%;
+    width: 100%;
+    text-align: center;
+  }
+
+  .logo_image img {
+    width: 70%;
+  }
+
+  .text_top {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: color($colors, light);
+    text-transform: uppercase;
+    font-family: 'Lato Regular';
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .forgot_pass {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: color($colors, light);
+    font-family: 'Lato Regular';
+  }
+
+  .or_text {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: color($colors, light);
+    font-family: 'Lato Regular';
+  }
+
+  button {
+    box-shadow: 0px 2px 2px #52527F !important;
+    text-transform: none !important;
+    border-radius: 50px;
+  }
+
+  ion-footer {
+    .toolbar-background {
+      background: color($colors, primary);
+      border: none !important;
+    }
+
+    .toolbar-content h2 {
+      margin: 0px !important;
+      font-size: 15px !important;
+      text-transform: none !important;
+      font-weight: normal !important;
+      font-family: "Lato Regular" !important;
+      text-align: center !important;
+      color: color($colors, light);
+    }
+  }
+
+  .formsection {
+    padding: 25px !important;
+    padding-top: 10px !important;
+    
+  }
+
+  .formsection .item-inner {
+    border: none !important;
+  }
+
+  .formsection .item {
+    border: 1px solid color($colors, stable) !important;
+    border-radius: 50px;
+  }
+
+
+  .formsection .text-input::-moz-placeholder {
+    color: color($colors, lightdark);
+    font-family: "Lato Light" !important;
+    font-weight: normal !important;
+    font-size: 16px !important;
+  }
+
+  .formsection .text-input:-ms-input-placeholder {
+    color: color($colors, lightdark);
+    font-family: "Lato Light" !important;
+    font-weight: normal !important;
+    font-size: 16px !important;
+  }
+
+  .formsection .text-input::-webkit-input-placeholder {
+    text-indent: 0;
+    color: color($colors, lightdark);
+    font-family: "Lato Light" !important;
+    font-weight: normal !important;
+    font-size: 16px !important;
+  }
+
+  .formsection .text-input {
+    color: color($colors, secondary);
+    font-weight: bold !important;
+  }
+
+  .formsection .button-md-light,
+  .formsection .button-ios-light {
+    color: color($colors, primary) !important;
+  }
+
+
+  .formsection .item-md.item-input.item-input-has-focus .item-inner,
+  .item-md.item-input.input-has-focus .item-inner {
+    border-bottom-color: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  .formsection .item-select .label {
+    font-size: 15px;
+    color: color($colors, "dark") !important;
+    font-family: "Lato Regular";
+  }
+
+  .formsection .item-select .select-text {
+    font-family: "Lato Regular";
+  }
+
+  .formsection .item-select.item-input-has-value .select-text {
+    color: color($colors, primary);
+    font-weight: bold;
+    font-family: "Lato Regular";
+  }
+
+}

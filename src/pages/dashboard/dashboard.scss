@@ -1,0 +1,131 @@
+page-dashboard {
+
+ 
+
+  button.live_now{
+    ion-icon.online{    
+        color: greenyellow;                
+        font-size: 40px;         
+    }  
+    ion-icon.offline{    
+        color: lighten(color($colors, primary), 9%);                
+        font-size: 40px;         
+    }       
+    span{
+        font-size: 16px !important;
+    }
+}
+
+  ion-content {
+    background-color: #F2F2F2 !important;
+  }
+
+  .logo_image {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0px 0px 10px #ddd;
+
+    img {
+      width: 70%;
+    }
+  }
+
+  .logged_in_user{
+    margin-top: 25px;
+    border:none !important;
+
+    .quick_action_boxes{
+      margin: 6px;
+      .box{
+        text-align: center;
+        border-radius: 10px;         
+        background: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        box-shadow: 0px 0px 10px #ddd;
+        ion-icon{
+          font-size: 50px;
+          // color: color($colors, lightdark);
+        }
+        p{
+          margin: 0px;
+          font-size: 11px;
+          text-transform: uppercase;
+          color: color($colors, primary);
+        }
+      }
+    }
+
+    .heading_text{
+      font-family: 'Lato Bold';
+      font-size: 18px;
+      margin: 0px;
+      color: color($colors, primary);
+      margin-bottom: 15px;
+    }
+
+    ion-item-divider{
+      text-transform: uppercase !important;
+      font-weight: bold;
+      font-size: 12px;
+    }
+    ion-item{
+      border-bottom: 1px solid #eee;
+      font-family: 'Lato Regular';
+      font-weight: bold;
+
+      .item-inner{
+        border: 0px !important;
+      }
+    }
+  }
+
+  ion-item.main_item {
+    padding: 5px;
+    padding-left: 15px;
+    border-bottom: 1px solid #eee !important;
+    font-family: 'Lato Regular';
+
+    span{
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .item-inner {
+      border-bottom: 0px !important;
+    }
+  }
+
+  ion-item.sub_item {
+    padding: 5px;
+    padding-left:15px;
+    border-bottom: 1px solid #eee !important;
+    font-family: 'Lato Regular';
+
+    span {
+      font-size: 16px;
+    }
+
+    ion-icon{
+      font-size: 18px;
+      padding-top: 7px;
+    }
+
+    .item-inner {
+      border-bottom: 0px !important;
+    }
+  }
+
+  .manage_patients_item {
+    padding: 5px;
+    padding-left:15px;
+    border-bottom: 1px solid #eee !important;
+    font-family: 'Lato Regular';
+    font-weight: bold;
+    .item-inner {
+      border-bottom: 0px !important;
+    }
+  }
+
+}

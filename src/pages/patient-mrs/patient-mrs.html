@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>mRS</ion-title>
+  </ion-navbar>
+  <ion-toolbar color="primary" class="custom_tabs">
+    <div class="row tabs">
+      <div class="col" [ngClass]="{'selected': selectedTab == 'discharge'}" (click)="changeTab('discharge')">
+        Discharge
+      </div>
+      <div class="col" [ngClass]="{'selected': selectedTab == '1_month'}" (click)="changeTab('1_month')">
+        1 Month
+      </div>
+      <div class="col" [ngClass]="{'selected': selectedTab == '3_months'}" (click)="changeTab('3_months')">
+        3 Months
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-item class="option_title">
+    <ion-note item-right class="mrs_points">
+      {{currentMRSPoints}}
+    </ion-note>
+    <h2 ion-text color="primary">Patient's Baseline Activity</h2>
+    <p>Choose best fit of patient's ability</p>
+  </ion-item>
+
+  <ion-list class="option_box" inset radio-group [(ngModel)]="currentMRSselection" >
+
+    <ion-item text-wrap>
+      <ion-note item-start>0</ion-note>
+      <ion-label>No symptoms at all</ion-label>
+      <ion-radio value="mrs_val_1" (ionSelect)="updateMRSofPatient('mrs_val_1', 0)"></ion-radio>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-note item-start>+1</ion-note>
+      <ion-label>No significant disability despite symptoms; able to carry out all usual duties and activities</ion-label>
+      <ion-radio value="mrs_val_2" (ionSelect)="updateMRSofPatient('mrs_val_2', 1)"></ion-radio>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-note item-start>+2</ion-note>
+      <ion-label>Slight disability; unable to carry out all previous activities, but able to look after own affairs
+        without assistance</ion-label>
+      <ion-radio value="mrs_val_3" (ionSelect)="updateMRSofPatient('mrs_val_3', 2)"></ion-radio>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-note item-start>+3</ion-note>
+      <ion-label>Moderate disability; requiring some help, but able to walk without assistance</ion-label>
+      <ion-radio value="mrs_val_4" (ionSelect)="updateMRSofPatient('mrs_val_4', 3)"></ion-radio>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-note item-start>+4</ion-note>
+      <ion-label>Moderately severe disability; unable to walk and attend to bodily needs without assistance</ion-label>
+      <ion-radio value="mrs_val_5" (ionSelect)="updateMRSofPatient('mrs_val_5', 4)"></ion-radio>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-note item-start>+5</ion-note>
+      <ion-label>Severe disability; bedridden, incontinent and requiring constant nursing care and attention</ion-label>
+      <ion-radio value="mrs_val_6" (ionSelect)="updateMRSofPatient('mrs_val_6', 5)"></ion-radio>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-note item-start>+6</ion-note>
+      <ion-label>Dead</ion-label>
+      <ion-radio value="mrs_val_7" (ionSelect)="updateMRSofPatient('mrs_val_7', 6)"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

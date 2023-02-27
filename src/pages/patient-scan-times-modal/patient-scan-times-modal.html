@@ -1,0 +1,105 @@
+<ion-toolbar color="primary">
+  <ion-buttons end right>
+    
+    <button ion-button icon-left color="light"
+      (tap)="closeModal()">
+      <ion-icon name="md-close"></ion-icon> Close
+    </button>
+      <!-- <button (click)="closeModal()" clear large icon-end ion-button color="light">
+        <ion-icon name="md-close"></ion-icon>
+      </button> -->
+    </ion-buttons>
+<ion-title>Scan Timings</ion-title>
+</ion-toolbar>
+<ion-content padding>
+  <div class="formsection" style="padding-top: 40px;">
+      <ion-item>
+        <ion-label color="primary" stacked>CT/CTA Time
+          <sup ion-text color="danger">*</sup>
+        </ion-label>
+        <ion-datetime [(ngModel)]="addPatientScanTimesData.ct_scan_time"  placeholder="Enter CT/CTA Time" displayFormat="DD-MM-YYYY hh:mm a" pickerFormat="DD-MM-YYYY hh:mm a"></ion-datetime>
+    </ion-item>
+    
+
+    <ion-item>
+      <ion-label color="primary" stacked>MRI/MRA Time
+      </ion-label>
+      <ion-datetime [(ngModel)]="addPatientScanTimesData.mr_mra_time" placeholder="Enter MRI/MRA Time" displayFormat="DD-MM-YYYY hh:mm a"  pickerFormat="DD-MM-YYYY hh:mm a"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+      <ion-label color="primary" stacked>DSA Time(Completed)
+      </ion-label>
+      <ion-datetime  [(ngModel)]="addPatientScanTimesData.dsa_time_completed" placeholder="Enter DSA Time" displayFormat="DD-MM-YYYY hh:mm a"  pickerFormat="DD-MM-YYYY hh:mm a"></ion-datetime>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label color="primary" stacked>Type of Stroke
+      <sup ion-text color="danger">*</sup>
+    </ion-label>
+    <ion-select class="sexfield" [(ngModel)]="addPatientScanTimesData.type_of_stroke" interface="popover" placeholder="Select Stroke Type">
+      <ion-option value="Ischemic">Ischemic</ion-option>
+      <ion-option value="Hemorrhagic">Hemorrhagic</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <br>
+  <ion-list>
+    <ion-item-divider>
+      <ion-label stacked>LVO?
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-toggle [(ngModel)]="addPatientScanTimesData.lvo"></ion-toggle>
+    </ion-item-divider>
+    <ng-container *ngIf="addPatientScanTimesData.lvo">
+        <ion-row>
+          <ion-col col-6> 
+            <ion-item>
+              <ion-label color="primary" stacked>LVO Types</ion-label>
+              <ion-select multiple="true"  [(ngModel)]="addPatientScanTimesData.lvo_types" interface="popover" placeholder="Select">
+                <ion-option value="{{type}}" *ngFor="let type of lvo_types">{{type}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6> 
+            
+            <ion-item>
+              <ion-label color="primary" stacked>Site</ion-label>
+              <ion-select [(ngModel)]="addPatientScanTimesData.lvo_site" interface="popover" placeholder="Select">
+                <ion-option value="left">Left</ion-option>
+                <ion-option value="right">Right</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>          
+        </ion-row>
+    </ng-container>
+  </ion-list>
+
+  
+  <ion-item>
+    <ion-label color="primary" stacked>Aspects
+      <sup ion-text color="danger">*</sup>
+    </ion-label>
+    <ion-select [(ngModel)]="addPatientScanTimesData.aspects" interface="popover" placeholder="Select">
+      <ion-option value="1">1</ion-option>
+      <ion-option value="2">2</ion-option>
+      <ion-option value="3">3</ion-option>
+      <ion-option value="4">4</ion-option>
+      <ion-option value="5">5</ion-option>
+      <ion-option value="6">6</ion-option>               
+      <ion-option value="7">7</ion-option>
+      <ion-option value="8">8</ion-option>
+      <ion-option value="9">9</ion-option>
+      <ion-option value="10">10</ion-option>
+    </ion-select>
+  </ion-item>
+
+    <br>
+    <br>
+    <br>
+    <button ion-button round (click)="savePatientScanTimes()" icon-left full color="success">
+      Update Information
+    </button>
+  </div>
+</ion-content>

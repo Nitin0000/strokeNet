@@ -1,0 +1,36 @@
+<ion-content class="slider no-scroll imagegallery" style="background:#000;">
+
+  <button (click)="goBack();" ion-button clear color="light" icon-only style="margin-left: 5px; margin-right: 10px; position: absolute; top: 10px; left: 0px; font-size: 24px; z-index: 100000000;">
+    <ion-icon name="arrow-back"></ion-icon>
+  </button>
+
+  
+
+
+
+  <ion-slides  zoom="false" *ngIf="photos && photos.length > 0" #slides pager class='gallery-slider' (ionSlideDidChange)="slideChanged()">
+    <ion-slide *ngFor="let photo of photos">
+        <img  zoom-pan [src]="photo.file"/>         
+    </ion-slide>
+</ion-slides>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="black">
+    <ion-row>
+      <ion-col text-center>
+        <button style="font-size: 16px;" (click)="shareImage();" ion-button clear color="light" icon-only>
+          <ion-icon name="md-share"></ion-icon> Share
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button style="font-size: 16px;" (click)="downloadImage();" ion-button clear color="light" icon-only>
+          <ion-icon name="md-download"></ion-icon> Download
+        </button>
+      </ion-col>
+    </ion-row>
+  
+    <!-- <button (click)="downloadImage();" ion-button clear color="light" icon-only style="margin-left: 5px; margin-right: 10px; position: absolute; top: 10px; right: 50px; font-size: 24px; z-index: 100000000;">
+      <ion-icon name="md-download"></ion-icon> Download
+    </button> -->
+  </ion-toolbar>
+</ion-footer>

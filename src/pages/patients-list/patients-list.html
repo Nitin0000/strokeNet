@@ -1,0 +1,248 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Patients</ion-title>
+  </ion-navbar>
+  
+  <ion-toolbar *ngIf="userData.is_hub_user" color="light" class="custom_tabs">
+      <div class="row tabs">
+          <div class="col" [ngClass]="{'selected': hub_patients}" (click)="changeTab('hub')">
+              Hub
+            </div>  
+          <div class="col" [ngClass]="{'selected': spoke_patients}" (click)="changeTab('spoke')">
+            Spoke
+          </div>              
+      </div>
+    </ion-toolbar>
+
+    <!-- <ion-toolbar *ngIf="userData.is_spoke_user" color="light" class="custom_tabs">
+      <div class="row tabs">
+        <div class="col" [ngClass]="{'selected': spoke_patients}" (click)="changeTab('spoke')">
+          Spoke
+        </div>
+        <div class="col" [ngClass]="{'selected': hub_patients}" (click)="changeTab('hub')">
+          Hub
+        </div>        
+      </div>
+    </ion-toolbar> -->
+
+</ion-header>
+
+<ion-content #content>
+  <!-- <ion-fab bottom right>
+    <button  (click)="scanQRCode()" color="danger" ion-fab><ion-icon name="qr-scanner"></ion-icon></button>    
+  </ion-fab> -->
+
+  <ion-refresher (ionRefresh)="doRefreshPatients($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to Refresh data"
+      refreshingText="Refreshing data...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="spoke_patients && !userData.is_hub_user">
+
+      <no-data *ngIf="spokePatients && spokePatients.length == 0" [title]="'No patients found'"
+      [message]="'You dont have any patients in your list.'"></no-data>
+
+    <ion-list *ngIf="spokePatients && spokePatients.length > 0">
+
+          <ion-searchbar  class="searchBar" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+          [(ngModel)]="searchQuery" (ionInput)="searchSpokePatients($event)" placeholder="Search using patient name or code "
+          (ionClear)="onCancelSpokePatients($event)">
+        </ion-searchbar>
+       
+
+      <ion-card class="patient_info" *ngFor="let patient of spokePatientsfilterData">
+        
+        <ion-item  text-wrap (click)="checkEditPatientAndGotoPage(patient.can_edit_patient_details, patient.id)">          
+          
+          <ion-thumbnail item-start *ngIf="patient.show_ivt_icon || patient.show_mt_icon">
+            <img style="width: 35px; height: 35px; margin-bottom: 5px;" *ngIf="patient.show_ivt_icon" src="assets/imgs/ivt.png" />
+            <img style="width: 35px; height: 35px;" *ngIf="patient.show_mt_icon" src="assets/imgs/mt.png" />
+          </ion-thumbnail>
+
+          <ion-icon *ngIf="!patient.patient_checked" class="update_icon" item-end color="danger">●</ion-icon>
+
+            <ion-icon item-end name="arrow-round-forward" color="primary"></ion-icon>
+
+            <h2 ion-text color="primary">
+              {{patient.show_original_name ? patient.name :  patient.patient_code}}
+
+              <small *ngIf="patient.show_stroke_type_text">
+                <span style="text-shadow: none;" ion-text [color]="patient.stroke_type == 'H' ? 'danger' : 'success'">
+                  {{patient.stroke_type}}
+                </span>
+              </small>
+
+            </h2>   
+
+          <p><span *ngIf="patient.gender">{{patient.gender | capitalizefirst}}, </span><span *ngIf="patient.age > 0">{{patient.age}} years old</span></p>
+          <p>Last Updated: {{patient.last_updated | amLocale:'en' | amTimeAgo}}</p>
+          <p>Admission Date: {{patient.created}}</p>
+
+          <p>
+            <ion-icon name="md-camera"></ion-icon> {{patient.assets.photos}} {{patient.assets.photos == 1 ? 'photo': 'photos'}} &nbsp;&nbsp; 
+            <ion-icon name="md-videocam"></ion-icon> {{patient.assets.videos}} {{patient.assets.photos == 1 ? 'video': 'videos'}}
+          </p>
+
+        </ion-item>
+
+        <!-- [ngClass]="{'border-right': userData.user_type == 'hospital'}" -->
+        <!-- <ion-row class="custom_buttons">
+          <ion-col class="border-right" (click)="gotoPatientSummaryPage(patient.id)">
+            Summary
+          </ion-col>
+          <ion-col (click)="gotoPatientDetailPage(patient.id)">
+            Edit
+          </ion-col>
+        </ion-row> -->
+      </ion-card>
+
+    </ion-list>
+
+  </div>
+
+  <div *ngIf="hub_patients">
+
+      <no-data *ngIf="hubPatients && hubPatients.length == 0" [title]="'No patients found'"
+      [message]="'You dont have any patients in your list.'"></no-data>
+
+    <ion-list *ngIf="hubPatients && hubPatients.length > 0">     
+
+        <ion-searchbar class="searchBar" style="background: #fff; margin:10px; width: 95%; border:1px solid #ddd;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+        [(ngModel)]="searchQuery" (ionInput)="searchHubPatients($event)" placeholder="Search using patient code"
+        (ionClear)="onCancelHubPatients($event)">
+      </ion-searchbar>
+
+      <ion-card class="patient_info" *ngFor="let patient of hubPatientsfilterData">
+        <ion-item text-wrap (click)="checkEditPatientAndGotoPage(patient.can_edit_patient_details, patient.id)">
+        
+          <ion-icon item-start *ngIf="patient.show_ivt_icon || patient.show_mt_icon">            
+            <img style="width: 35px; height: 35px; margin-bottom: 5px;" *ngIf="patient.show_ivt_icon" src="assets/imgs/ivt.png" />
+            <img style="width: 35px; height: 35px;" *ngIf="patient.show_mt_icon" src="assets/imgs/mt.png" />
+          </ion-icon>
+          
+          <ion-icon *ngIf="!patient.patient_checked" class="update_icon" item-end color="danger">●</ion-icon>
+
+          <ion-icon item-end name="arrow-round-forward" color="primary"></ion-icon>
+          <h2 ion-text color="primary">
+            {{patient.show_original_name ? patient.name :  patient.patient_code}}
+
+            <small *ngIf="patient.show_stroke_type_text">
+              <ion-badge style="text-shadow: none;" [color]="patient.stroke_type == 'H' ? 'danger' : 'success'">
+                {{patient.stroke_type}}
+              </ion-badge>
+            </small>
+          
+          </h2>
+
+          <p><span *ngIf="patient.gender">{{patient.gender | capitalizefirst}}, </span><span *ngIf="patient.age > 0">{{patient.age}} years old</span></p>
+          
+          <p>Last Updated: {{patient.last_updated | amLocale:'en' | amTimeAgo}}</p>
+          <p>Admission Date: {{patient.created}}</p>
+          <p>
+            <ion-icon name="md-camera"></ion-icon> {{patient.assets.photos}} {{patient.assets.photos == 1 ? 'photo': 'photos'}} &nbsp;&nbsp; 
+            <ion-icon name="md-videocam"></ion-icon> {{patient.assets.videos}} {{patient.assets.photos == 1 ? 'video': 'videos'}}
+          </p>
+        </ion-item>
+
+
+        <!-- [ngClass]="{'border-right': userData.user_type == 'hospital'}" -->
+        <!-- <ion-row class="custom_buttons">
+          <ion-col class="border-right" (click)="gotoPatientSummaryPage(patient.id)">
+            Summary
+          </ion-col>
+          <ion-col (click)="gotoPatientDetailPage(patient.id)">
+            Edit
+          </ion-col>
+        </ion-row> -->
+      </ion-card>
+
+    </ion-list>
+
+
+  </div>
+
+  <div *ngIf="spoke_patients && userData.is_hub_user">
+    <no-data *ngIf="hubSpokePatients && hubSpokePatients.length == 0" [title]="'No patients found'"
+    [message]="'You dont have any patients in your list.'"></no-data>
+
+  <ion-list *ngIf="hubSpokePatients && hubSpokePatients.length > 0">
+
+    <ion-toolbar class="sub_header" color="light">
+      <ion-row>
+        <ion-col col-12 text-left>
+          
+          <ion-select interface="action-sheet" okText="Okay" cancelText="Dismiss" title="Choose center" [(ngModel)]="currentCenter"  (ngModelChange)="onCenterChanged($event)">
+            <ion-option value="All Centers">All Centers</ion-option>          
+            <ion-option *ngFor="let center of centers" value="{{center}}">{{center}}</ion-option>     
+          </ion-select>
+        </ion-col>        
+      </ion-row>
+    </ion-toolbar>
+
+        <!-- <ion-searchbar  class="searchBar" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+        [(ngModel)]="searchQuery" (ionInput)="searchHubSpokePatients($event)" placeholder="Search using patient name or code "
+        (ionClear)="onCancelHubSpokePatients($event)">
+      </ion-searchbar> -->
+     
+    <ng-container *ngFor="let center of hubSpokePatientsfilterData">
+      
+    <ng-container *ngIf="currentCenter == center.name || currentCenter == 'All Centers'">
+      <ion-item-divider color="primary">{{center.name}}</ion-item-divider>
+      
+      <ion-card class="patient_info" *ngFor="let patient of center.patients">
+      
+        <ion-item  text-wrap (click)="checkEditPatientAndGotoPage(patient.can_edit_patient_details, patient.id)">          
+          
+          <ion-thumbnail item-start *ngIf="patient.show_ivt_icon || patient.show_mt_icon">
+            <img style="width: 35px; height: 35px; margin-bottom: 5px;" *ngIf="patient.show_ivt_icon" src="assets/imgs/ivt.png" />
+            <img style="width: 35px; height: 35px;" *ngIf="patient.show_mt_icon" src="assets/imgs/mt.png" />
+          </ion-thumbnail>
+  
+          <ion-icon *ngIf="!patient.patient_checked" class="update_icon" item-end color="danger">●</ion-icon>
+  
+            <ion-icon item-end name="arrow-round-forward" color="primary"></ion-icon>
+  
+            <h2 ion-text color="primary">
+              {{patient.show_original_name ? patient.name :  patient.patient_code}}
+  
+              <small *ngIf="patient.show_stroke_type_text">
+                <span style="text-shadow: none;" ion-text [color]="patient.stroke_type == 'H' ? 'danger' : 'success'">
+                  {{patient.stroke_type}}
+                </span>
+              </small>
+  
+            </h2>   
+  
+          <p><span *ngIf="patient.gender">{{patient.gender | capitalizefirst}}, </span><span *ngIf="patient.age > 0">{{patient.age}} years old</span></p>
+          <p>Last Updated: {{patient.last_updated | amLocale:'en' | amTimeAgo}}</p>
+          <p>Admission Date: {{patient.created}}</p>
+  
+          <p>
+            <ion-icon name="md-camera"></ion-icon> {{patient.assets.photos}} {{patient.assets.photos == 1 ? 'photo': 'photos'}} &nbsp;&nbsp; 
+            <ion-icon name="md-videocam"></ion-icon> {{patient.assets.videos}} {{patient.assets.photos == 1 ? 'video': 'videos'}}
+          </p>
+  
+        </ion-item>
+  
+      </ion-card>
+    </ng-container>
+
+      
+    </ng-container>
+
+    
+
+  </ion-list>
+
+</div>
+
+
+  <!-- <no-data *ngIf="patientsfilterData && patientsfilterData.length == 0" [title]="'No patients found'"
+    [message]="'You dont have any patients in your list.'"></no-data> -->
+
+
+</ion-content>

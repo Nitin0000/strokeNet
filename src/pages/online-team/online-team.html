@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Online Team</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="onlineUsers && onlineUsers.length > 0">
+    <ng-container *ngFor="let center of onlineUsers">  
+      <ion-item-divider color="primary">{{center.center_name}}</ion-item-divider>
+      <ion-item *ngFor="let user of center.online_users">
+        <b ion-text color="primary">{{user.fullname}}</b>
+        <p>{{user.user_role}}, {{user.user_department}}</p>
+        <ion-icon style="margin-right: 15px;" (click)="callPhoneNumber(user.phone_number, user.fullname)" color="primary" name="ios-call" item-right></ion-icon>
+        <ion-icon (click)="startChat(user.user_id)" color="primary" name="md-chatboxes"  item-right></ion-icon>         
+        <ion-icon (click)="openWhatsapp(user.phone_number)" color="success" name="logo-whatsapp"  item-right></ion-icon>           
+      </ion-item>
+    </ng-container>
+</ion-list>
+</ion-content>

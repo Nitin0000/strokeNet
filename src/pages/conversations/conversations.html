@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+    <ion-title>Chats</ion-title>
+  </ion-navbar>
+  <ion-toolbar color="light" class="filter_header">
+      <div class="row" id="navbarFilter">
+          <div (tap)="showAllChats()"  class="col buttonsection-left" [ngClass]="{'selected': ActiveChats}">
+              Active
+          </div>
+          <div (tap)="showArchivedChats()" class="col buttonsection-right" [ngClass]="{'selected': ArchivedChats}">
+              Archived
+          </div>
+      </div>      
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                    pullingIcon="arrow-dropdown"
+                    pullingText="Pull to Refresh conversations"
+                    refreshingText="Refreshing Conversations">                
+        </ion-refresher-content>
+    </ion-refresher>
+    
+    
+    <ng-container *ngIf="ActiveChats">
+        <div text-center padding *ngIf="conversations.active && conversations.active.length == 0">
+            <div class="noDataPlaceholder">
+                <ion-icon name='ios-information-circle-outline'></ion-icon><br>
+                <span class="noDataPlaceholderText">No conversations found</span> 
+            </div>         
+        </div>
+        
+        <ion-list>
+            
+            <ion-item [ngClass]="!conversation.already_read ? 'not_read_background' : ''" text-wrap *ngFor="let conversation of conversations.active">
+              <!-- <ion-avatar item-start>
+                      <img (click)="gotoPublicProfile(conversation.friend_info.user_id)" *ngIf="conversation.friend_info.user_image && !conversation.friend_info.fb_id" class="profile_image" [src]="conversation.friend_info.user_image"/>
+                      
+                       <img (click)="gotoPublicProfile(conversation.friend_info.user_id)" *ngIf="conversation.friend_info.user_image && conversation.friend_info.fb_id" class="profile_image" [src]="conversation.friend_info.user_image"/>
+                       
+                      <img (click)="gotoPublicProfile(conversation.friend_info.user_id)" *ngIf="!conversation.friend_info.user_image && !conversation.friend_info.fb_id" class="profile_image" src="assets/imgs/user-avatar.png"/>
+                      
+                     <img (click)="gotoPublicProfile(conversation.friend_info.user_id)" *ngIf="conversation.friend_info.fb_id && !conversation.friend_info.user_image" class="profile_image" src="https://graph.facebook.com/{{conversation.friend_info.fb_id}}/picture?type=square&width=200&height=200"/>
+
+                     <p ion-text [color]="conversation.friend_info.profile_type == 'single' ? 'primary' : 'dark'"><small>{{conversation.friend_info.profile_type | uppercase}}</small></p>
+                  </ion-avatar> -->
+
+                    <ion-icon (click)="gotoChatPage(conversation.firebase_id, conversation)" item-end name="ios-arrow-forward-outline"></ion-icon>
+
+                    <h2 (click)="gotoChatPage(conversation.firebase_id, conversation)" ion-text color="primary">
+                      {{conversation.friend_info.username}}</h2>
+                      <div *ngIf="conversation && !conversation.patient_info">                        
+                        <p [ngClass]="!conversation.already_read ? 'message_bold' : ''" (click)="gotoChatPage(conversation.firebase_id, conversation)" ion-text color="primary" *ngIf="conversation.last_message">{{conversation.last_message}}</p>
+                        <p *ngIf="conversation.last_message_at"><small>{{conversation.last_message_at | amTimeAgo}}</small></p>
+                    </div>  
+                    <div *ngIf="conversation && conversation.patient_info && conversation.patient_info.name">
+                        <p (click)="gotoChatPage(conversation.firebase_id, conversation)">
+                            Patient Name: <b>{{conversation.patient_info.name}}</b></p>
+                        <p [ngClass]="!conversation.already_read ? 'message_bold' : ''" (click)="gotoChatPage(conversation.firebase_id, conversation)" ion-text color="primary" *ngIf="conversation.last_message">{{conversation.last_message}}</p>
+                        <p *ngIf="conversation.last_message_at"><small>{{conversation.last_message_at | amTimeAgo}}</small></p>
+                    </div>                              
+            </ion-item>
+        </ion-list>
+    </ng-container>
+
+    <ng-container *ngIf="ArchivedChats">
+        <div text-center padding *ngIf="conversations.archived && conversations.archived.length == 0">
+            <div class="noDataPlaceholder">
+                <ion-icon name='ios-information-circle-outline'></ion-icon><br>
+                <span class="noDataPlaceholderText">No conversations found</span> 
+            </div>         
+        </div>
+        
+        <ion-list>
+            <ion-item text-wrap *ngFor="let conversation of conversations.archived">
+              <!-- <ion-avatar item-start>
+
+                      <img (click)="gotoPublicProfile(conversation.friend_info.user_id)" *ngIf="conversation.friend_info.user_image && !conversation.friend_info.fb_id" class="profile_image" [src]="conversation.friend_info.user_image"/>
+                      
+                       <img (click)="gotoPublicProfile(conversation.friend_info.user_id)" *ngIf="conversation.friend_info.user_image && conversation.friend_info.fb_id" class="profile_image" [src]="conversation.friend_info.user_image"/>
+                       
+                      <img (click)="gotoPublicProfile(conversation.friend_info.user_id)" *ngIf="!conversation.friend_info.user_image && !conversation.friend_info.fb_id" class="profile_image" src="assets/imgs/user-avatar.png"/>
+                      
+                     <img (click)="gotoPublicProfile(conversation.friend_info.user_id)" *ngIf="conversation.friend_info.fb_id && !conversation.friend_info.user_image" class="profile_image" src="https://graph.facebook.com/{{conversation.friend_info.fb_id}}/picture?type=square&width=200&height=200"/>
+                     <p><small>{{conversation.friend_info.profile_type | uppercase}}</small></p>
+                  </ion-avatar> -->
+
+
+                    <ion-icon (click)="gotoChatPage(conversation.firebase_id, conversation)" item-end name="ios-arrow-forward-outline"></ion-icon>
+    
+                    <h2 (click)="gotoChatPage(conversation.firebase_id, conversation)" ion-text color="primary">
+                      {{conversation.friend_info.username}}</h2>
+                    <div *ngIf="conversation && !conversation.patient_info">                        
+                        <p [ngClass]="!conversation.already_read ? 'message_bold' : ''" (click)="gotoChatPage(conversation.firebase_id, conversation)" ion-text color="primary" *ngIf="conversation.last_message">{{conversation.last_message}}</p>
+                        <p *ngIf="conversation.last_message_at"><small>{{conversation.last_message_at | amTimeAgo}}</small></p>
+                    </div>  
+                    <div *ngIf="conversation && conversation.patient_info && conversation.patient_info.name">
+                        <p (click)="gotoChatPage(conversation.firebase_id, conversation)">
+                            Patient Name: <b>{{conversation.patient_info.name}}</b></p>
+                        <p [ngClass]="!conversation.already_read ? 'message_bold' : ''" (click)="gotoChatPage(conversation.firebase_id, conversation)" ion-text color="primary" *ngIf="conversation.last_message">{{conversation.last_message}}</p>
+                        <p *ngIf="conversation.last_message_at"><small>{{conversation.last_message_at | amTimeAgo}}</small></p>
+                    </div>                           
+            </ion-item>
+        </ion-list>
+    </ng-container>
+    
+</ion-content>

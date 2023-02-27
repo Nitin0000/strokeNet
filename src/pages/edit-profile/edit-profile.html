@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Edit Profile</ion-title>
+    </ion-navbar>
+  </ion-header>
+<ion-content padding>
+    <div class="formsection">
+
+      <ion-row>
+
+        <ion-col>
+          <ion-item>
+            <ion-label color="primary" stacked>First name <sup ion-text color="danger">*</sup>
+            </ion-label>
+            <ion-input [(ngModel)]="userData.first_name" type="text"></ion-input>
+        </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label color="primary" stacked>Last name <sup ion-text color="danger">*</sup>
+            </ion-label>
+            <ion-input [(ngModel)]="userData.last_name" type="text"></ion-input>
+        </ion-item>
+        </ion-col>
+
+      </ion-row>
+        
+
+        <ion-item>
+            <ion-label color="primary" stacked>Email address <sup ion-text color="danger">*</sup>
+            </ion-label>
+            <ion-input [(ngModel)]="userData.email_address" type="email"></ion-input>
+        </ion-item>
+
+        <ion-item text-wrap>
+            <ion-label color="primary" stacked>Mobile number <sup ion-text color="danger">*</sup> <br><em><small>(Make sure this number is on Whatsapp too.)</small></em> 
+            </ion-label>
+            <ion-input [(ngModel)]="userData.phone_number" type="tel"></ion-input>
+        </ion-item>
+
+        
+        <br>
+      <sup ion-text color="danger">*</sup>
+      <span ion-text color="lightdark">required fields</span>
+      <br>
+      <br>
+      <button ion-button round icon-left full color="primary" (click)="updateProfile()">
+        Save
+      </button>
+      <!-- <br>
+      <div text-center>or</div>
+      <br>
+      <button ion-button icon-left full color="dark" (click)="gotoChangePasswordPage()">
+          Change Password
+        </button> -->
+    </div>
+</ion-content>

@@ -1,0 +1,144 @@
+page-edit-profile {
+    ion-item{
+        padding:6px 5px !important;
+    }
+    
+    ion-item.description_item{
+        padding-bottom:0px;
+    }
+    ion-item.description_item .item-inner{
+        border-bottom:0px !important;
+    }
+    
+    ion-input{
+        color: color($colors, primary);
+        font-weight: bold;
+        font-family: "Lato Regular";        
+    }
+    
+    .text-input[disabled] {
+        color: #333 ;
+        opacity: 2;
+    }
+    
+    ion-datetime{
+        color: color($colors, primary);
+        font-weight: bold;
+        font-family: "Lato Regular";
+    }
+    
+    ion-datetime{
+        color: color($colors, primary);
+        font-weight: bold;
+        font-family: "Lato Regular";
+    }
+    
+    .datetime-placeholder{
+        color: color($colors, "lightdark") !important;
+        font-weight: normal;
+        font-size: 13px;
+        font-family: "Lato Regular";
+    }
+    .text-input::-moz-placeholder {
+        color: color($colors, "lightdark") !important;
+        font-weight: normal;
+        font-size: 13px;
+        font-family: "Lato Regular";
+    }
+    
+
+    .text-input:-ms-input-placeholder {
+        color: color($colors, "lightdark") !important;
+        font-weight: normal;
+        font-size: 13px;
+        font-family: "Lato Regular";
+    }
+
+    .text-input::-webkit-input-placeholder {
+        text-indent: 0;
+        color: color($colors, "lightdark") !important;
+        font-weight: normal;
+        font-size: 13px;
+        font-family: "Lato Regular";
+    }
+    .item-label-stacked .label{
+        font-size: 15px;
+        color: color($colors, "dark") !important;
+        font-family: "Lato Regular";
+    }
+    .item-select .label{
+        font-size: 15px;
+        color: color($colors, "dark") !important;
+        font-family: "Lato Regular";
+    }
+    
+    .item-select .select-text{
+        font-family: "Lato Regular";
+    }
+    
+    .item-select.item-input-has-value .select-text{
+        color: color($colors, primary);
+        font-weight: bold;
+        font-family: "Lato Regular";
+    }
+    
+    .add_description_textarea{
+        background: transparent !important;
+        border:none !important;
+        width:100%;
+        min-height:50px;
+        font-family: "Lato Bold" !important;
+        font-size: 20px;
+        line-height: 30px;
+        color: color($colors, primary);
+        font-weight: bold;
+        border-bottom:1px solid #ccc !important;
+        margin-bottom: 10px;
+    }
+    
+    .add_description_textarea::-moz-placeholder {
+        font-family: "Lato Light" !important;
+        font-weight: normal !important;
+        font-size: 15px;
+    }
+
+    .add_description_textarea:-ms-input-placeholder {
+        font-family: "Lato Light" !important;
+        font-weight: normal !important;
+        font-size: 15px;
+    }
+
+    ion-item-divider{
+        background: none !important;
+        padding-left: 5px !important;
+        margin-bottom: 10px;
+    }
+    .add_description_textarea::-webkit-input-placeholder {
+        text-indent: 0;
+        font-family: "Lato Light" !important;
+        font-weight: normal !important;
+        font-size: 15px;
+    }
+
+    .addImagesSection{        
+        border:1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px 10px;
+        text-align: center;
+        color: #ccc;
+         ion-icon{
+            font-size: 70px;
+         }
+         h2{
+            line-height: 18px;
+            font-size: 20px;
+            margin:0px;
+         }
+         p{
+            line-height: 18px;
+            font-size: 11px;
+            width: 80%;
+            margin: 10px auto;
+         }
+    }   
+}

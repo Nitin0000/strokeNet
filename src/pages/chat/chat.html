@@ -1,0 +1,68 @@
+<ion-header>
+    <ion-navbar color="primary">
+
+      <ion-buttons end right *ngIf="conversationData && conversationData.id">
+
+          <!-- <button *ngIf="(!conversationData.chat_blocked || conversationData.chat_block_user_id == userData.user_id) && !conversationData.chat_left" large icon-end ion-button color="light" (click)="blockUser(otherUserId)">
+              <ion-icon name="ios-hand" *ngIf="!conversationData.blocked_conversation"></ion-icon>
+              <ion-icon name="md-remove-circle" *ngIf="conversationData.blocked_conversation"></ion-icon>
+          </button>   -->
+
+           <button *ngIf="!conversationData.chat_left" large icon-end ion-button color="light" (click)="leaveConversation(otherUserId)">
+                <ion-icon name="md-log-out"></ion-icon>
+          </button>  
+      </ion-buttons>        
+      <ion-title><div *ngIf="conversationData && conversationData.friend_info">{{conversationData.friend_info.fullname}}</div></ion-title>
+    </ion-navbar>
+
+    <ion-toolbar color="light" *ngIf="conversationData && conversationData.patient_info">
+        <ion-row>
+            <ion-col col-8 text-left>
+                <b ion-text color="primary">{{conversationData.patient_info.name}}</b> ({{conversationData.patient_info.patient_code}})
+            </ion-col>
+            <ion-col col-2 text-right>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+
+  </ion-header>
+  
+  <ion-content>    
+
+    <!-- {{conversationData | json}} -->
+    <!-- (press)="onLongPress($event, message.key, message.message.user_id)" -->
+    
+      <div class="message-wrap">
+          <div *ngFor="let message of messages | async">
+              <div class="message" *ngIf="message && message.message && message.message[userData.user_id]" [ngClass]="message.message.user_id == userData.user_id ? 'right' : 'left'">
+                  <div class="msg-detail">
+                      <div class="msg-info">
+                          <p>
+                              {{message.message.user_id == userData.user_id ? userData.fullname : conversationData.fullname}} - {{message.message.created | amTimeAgo}}  
+                              <ion-icon *ngIf="message.message.user_id == userData.user_id" [color]="message.message.read_by_user ? 'success' : 'verylightgrey'" name="md-checkmark-circle"></ion-icon></p>
+                      </div>
+                      <div  class="msg-content">
+                          <span class="triangle"></span>
+                          <p class="line-breaker">{{message.message.message}}</p>  
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+  </ion-content>
+  
+  <ion-footer no-border style="padding: 5px; padding-bottom: 15px; border-top:1px solid #eee; background: none !important" *ngIf="showFooter">
+      <ion-grid class="input-wrap"> 
+          <ion-row>             
+              <ion-col col-11 style="padding-top: 5px;">
+                  <ion-input autocomplete="true" autocorrect="on" spellcheck="true" #chatinput [(ngModel)]="newMessageData.message" placeholder="Type something..." style="border-bottom:1px solid #ccc;"></ion-input>
+              </ion-col>
+              <ion-col col-1>
+                  <button ion-button clear icon-only item-right (click)="sendMessage()">
+                      <ion-icon name="ios-send" ios="ios-send" md="md-send"></ion-icon>
+                  </button>
+              </ion-col>
+          </ion-row>
+      </ion-grid>
+  </ion-footer>

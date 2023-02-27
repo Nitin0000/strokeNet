@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar color="primary">   
+    <ion-buttons end right>
+      <button (click)="saveCOVIDScore()" clear large icon-end ion-button color="light">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>COVID Check List</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+  <div class="nihss_items">
+    <div class="nihss_item" *ngFor="let type of covid_checklist; let i = index">
+      <ion-item class="option_title" text-wrap text-center>
+        <h2 ion-text color="primary">{{type.label_en}}</h2>
+      </ion-item>
+      <ion-list class="option_box" inset>
+        <ion-item text-wrap *ngFor="let option of type.options; let z = index">
+          <ion-note item-start>{{option.points > 0 ? '+' : ''}}{{option.points}}</ion-note>
+          <ion-label>{{option.label}}</ion-label>
+          <ion-radio (ionSelect)="selectCOVIDOption(i, z, option.name, option.points)" [checked]="covid_checklist[i]['options'][z]['checked']"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="nihss_score_footer">
+  <ion-toolbar color="success">
+    <p>
+      <b>{{total_calculated_points}}</b> points
+    </p>
+    <ion-buttons end>
+      <button class="save_button" (click)="saveCOVIDScore()" ion-button color="successdark">
+        Save
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

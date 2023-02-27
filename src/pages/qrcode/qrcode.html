@@ -1,0 +1,16 @@
+<ion-toolbar color="primary">
+  <ion-buttons end right>
+      <button (click)="closeModal()" clear large icon-end ion-button color="light">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+<ion-title>View QR Code</ion-title>
+</ion-toolbar>
+<ion-content padding>
+  <div text-center  style="padding-top: 100px;">
+      <qr-code [value]="qrCode" [size]="300"></qr-code>
+      <p ion-text color="lightdark" padding>
+        Share this code with anyone you want to share the details with.
+      </p>
+  </div>
+</ion-content>

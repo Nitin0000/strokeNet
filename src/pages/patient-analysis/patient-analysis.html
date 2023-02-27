@@ -1,0 +1,206 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Stroke Pathway</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+
+  <div *ngIf="patient && patient.id" class="root-container">
+    
+    <div class="patient_info header">
+      <h2 ion-text color="light">{{patient.show_original_name ? patient.name :  patient.patient_code}}</h2>
+
+      <p class="patient_age_gender" ion-text color="stable">
+        <b><span *ngIf="patient.gender">{{patient.gender | capitalizefirst}}, </span><span *ngIf="patient.age > 0">{{patient.age}} years old</span></b></p>
+      <!-- <p class="last_updated" ion-text color="light"><small>Last Updated:
+          {{ patient.last_updated  | amLocale:'en' | amTimeAgo}}</small></p> -->
+    </div>
+
+    <ion-toolbar color="primary" class="custom_tabs">
+      <div class="row tabs">
+        <div class="col" [ngClass]="{'selected': selectedSectionTab == 'status'}" (click)="changeTab('status')">
+          Status
+        </div>
+        <div class="col" [ngClass]="{'selected': selectedSectionTab == 'comments'}" (click)="changeTab('comments')">
+          Comments
+        </div>
+        <div class="col" [ngClass]="{'selected': selectedSectionTab == 'users_online'}"
+          (click)="changeTab('users_online')">
+          Team
+        </div>
+      </div>
+    </ion-toolbar>
+
+    <div class="bottom_section" class="scroll-container">
+
+      <ion-scroll #chatScroll id="chatScroll" scrollY="true" [ngStyle]="{ 'min-height' : scrollHeight}">
+
+        <div *ngIf="selectedSectionTab == 'status'">
+
+          <div *ngIf="(!patient.in_transition && !patient.is_user_from_hub && patient.is_spoke_patient) || 
+          (patient.in_transition && patient.is_user_from_hub && patient.is_spoke_patient) ||
+          (patient.is_hub_patient && patient.is_user_from_hub)
+          ">
+
+          <ion-list class="formsection" inset *ngIf="!patientExpired">
+            <ion-item style="border: 1px solid #ccc !important; border-radius: 10px !important; margin-bottom:0px;" *ngIf="available_statuses && available_statuses.length > 0">
+              <ion-label>Punch a status</ion-label>
+              <ion-select interface="action-sheet" (ionChange)="onChangeTransitionStatus($event)" [(ngModel)]="selectedTransitionStatus" style="max-width: 100%" placeholder="Choose a status">
+                <ion-option *ngFor="let status of available_statuses" [value]="status.id">{{status.title}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+
+          <ion-list  *ngIf="!patientExpired" class="formsection" inset  style="border: 1px solid #ccc !important; border-radius: 10px !important; margin-bottom:10px;">            
+            <ion-item>
+              <ion-label>{{selectedConclusionType}}</ion-label>
+              <ion-select [(ngModel)]="selectedConclusionValue" interface="action-sheet" style="max-width: 85%" placeholder="Choose a status">
+                <ng-container *ngFor="let option of conclusionTypeValues">
+                  <ion-option *ngIf="option.type == selectedConclusionType"  [value]="option.title">{{option.title}}</ion-option>
+                  </ng-container>                  
+              </ion-select>
+            </ion-item>
+              <ion-grid *ngIf="selectedConclusionValue && selectedConclusionValue !=='' ">
+                <ion-row>
+                  <ion-col>
+                      <button (click)="cancelConclusionTypes()" ion-button block full round color="lightdark">Cancel</button>
+                  </ion-col>
+                  <ion-col>
+                      <button (click)="saveConclusionValue()" ion-button block full round color="success">Submit</button>
+                      
+                  </ion-col>
+                </ion-row> 
+              </ion-grid>
+          </ion-list>
+
+
+        </div>
+
+        <ion-list *ngIf="postedOutcomes && postedOutcomes.length > 0" class="transition_statuses">
+          <ion-list-header>
+            Outcomes
+          </ion-list-header>
+
+        <ion-item text-wrap *ngFor="let outcome of postedOutcomes">
+          <ion-avatar style="padding-top: 15px;" item-start><span ion-text [color]="outcome.conclusion_value == 'Expired' ? 'danger' : outcome.conclusion_value == 'LAMA' ? 'orange' : 'success'"> ■ </span></ion-avatar>
+          <h2>{{outcome.conclusion_value}}</h2>
+          <p><b>{{outcome.user_name}}</b></p>
+          <ion-note item-end text-right>
+            {{outcome.date}}
+            <br>
+            {{outcome.time}}
+          </ion-note>
+        </ion-item>
+        
+      </ion-list>
+
+          <ion-list class="transition_statuses">
+              <ion-list-header>
+                Status Timeline
+              </ion-list-header>
+
+            <ion-item text-wrap *ngFor="let status of transitionStatuses">
+              <ion-avatar style="padding-top: 15px;" item-start><span ion-text [color]="status.loc_type == 'hub' ? 'success' : 'lightdark'"> ■ </span></ion-avatar>
+              <h2>{{status.title}}</h2>
+              <p><b>{{status.user_name}}</b></p>
+              <p>@ {{status.center_name}}, {{status.center_location}}</p>
+              <ion-note item-end text-right>
+                {{status.date}}<br>
+                {{status.time}}
+              </ion-note>
+            </ion-item>
+            
+          </ion-list>
+        </div>
+
+        <div *ngIf="selectedSectionTab == 'comments'">
+          <no-data *ngIf="comments && comments.length == 0" [title]="'No comments found'"
+            [message]="'You can be the first one to write.'"></no-data>
+
+          <div class="message-wrap">
+            <div *ngFor="let comment of comments">
+              <div class="message" *ngIf="comment && comment.message"
+                [ngClass]="comment.user_id.user_id == userData.user_id ? 'right' : 'left'">
+                <div class="msg-detail">
+                  <div class="msg-info">
+                    <p>
+                      {{comment.user_id.fullname}} - {{comment.created | amTimeAgo}}</p>
+                  </div>
+                  <div class="msg-content">
+                    <span class="triangle"></span>
+                    <p class="line-breaker">{{comment.message}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngIf="selectedSectionTab == 'users_online'">
+          <ion-list *ngIf="onlineHubUsers && onlineHubUsers.online_users && onlineHubUsers.online_users.length > 0">
+              <ion-item-divider color="primary">{{onlineHubUsers.name}}</ion-item-divider>
+              <ion-item *ngFor="let user of onlineHubUsers.online_users">
+                <b ion-text color="primary">{{user.fullname}}</b>
+                <p>{{user.user_role}}, {{user.user_department}}</p>
+
+
+                <p (click)="startChat(user.user_id)" *ngIf="user.last_message && user.last_message.last_message" ion-text [color]="user.last_message_read ? 'dark' : 'danger'"><ion-icon [color]="user.last_message_read ? 'lightdark' : 'warning'" name="ios-hand"></ion-icon> {{user.last_message.last_message}}</p>
+
+                <ion-icon style="margin-right: 15px;" (click)="callPhoneNumber(user.phone_number, user.fullname)" color="primary" name="ios-call" item-right></ion-icon>
+
+                <ion-icon (click)="startChat(user.user_id)" color="primary" name="md-chatboxes"  item-right></ion-icon> 
+
+                <ion-icon (click)="openWhatsapp(user.phone_number)" color="success" name="logo-whatsapp"  item-right></ion-icon>                  
+              </ion-item>
+          </ion-list>
+                  
+          <ion-list *ngIf="onlineSpokeUsers && onlineSpokeUsers.online_users && onlineSpokeUsers.online_users.length > 0">
+            <ion-item-divider>{{onlineSpokeUsers.name}}</ion-item-divider>
+            <ion-item *ngFor="let user of onlineSpokeUsers.online_users">
+              <b ion-text color="primary">{{user.fullname}}</b>
+              <p>{{user.user_role}}, {{user.user_department}}</p>
+
+              <p (click)="startChat(user.user_id)" *ngIf="user.last_message && user.last_message.last_message" ion-text [color]="user.last_message_read ? 'dark' : 'danger'"><ion-icon [color]="user.last_message_read ? 'lightdark' : 'warning'" name="ios-hand"></ion-icon> {{user.last_message.last_message}}</p>
+
+
+              <ion-icon  style="margin-right: 15px;" (click)="callPhoneNumber(user.phone_number, user.fullname)" color="primary" name="ios-hand" item-right></ion-icon>
+              
+                <ion-icon (click)="startChat(user.user_id)" color="primary" name="md-chatboxes"  item-right></ion-icon> 
+
+                <ion-icon (click)="openWhatsapp(user.phone_number)" color="success" name="logo-whatsapp"  item-right></ion-icon>  
+
+            </ion-item>
+        </ion-list>
+
+
+        </div>
+
+      </ion-scroll>
+
+    </div>
+
+
+
+  </div>
+</ion-content>
+<ion-footer no-border style="padding: 2px; border-top:1px solid #eee; background: #ffff !important"
+  *ngIf="selectedSectionTab == 'comments'">
+  <ion-grid class="input-wrap">
+    <ion-row>
+      <ion-col col-11 style="padding-top: 5px;">
+        <ion-input autocomplete="true" autocorrect="on" spellcheck="true" [(ngModel)]="commentData.message" placeholder="Type your message here"
+          style="border-bottom:1px solid #ccc;"></ion-input>
+      </ion-col>
+      <ion-col col-1>
+        <button ion-button clear icon-only item-right (click)="postComment()">
+          <ion-icon name="ios-send" ios="ios-send" md="md-send"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

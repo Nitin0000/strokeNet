@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Contact Us</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  
+  <div class="formsection">
+    <ion-item>
+        <ion-label color="primary" stacked>Name <sup ion-text color="danger">*</sup>
+        </ion-label>
+        <ion-input placeholder="Enter your name" [(ngModel)]="contactUsData.name" type="text" autocomplete="false" autocorrect="false" spellcheck="false"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label color="primary" stacked>Email address <sup ion-text color="danger">*</sup>
+        </ion-label>
+        <ion-input placeholder="Enter your email address" [(ngModel)]="contactUsData.email" type="email" autocomplete="false" autocorrect="false" spellcheck="false"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label color="primary" stacked>Mobile/Phone number <sup ion-text color="danger">*</sup>
+        </ion-label>
+        <ion-input placeholder="Enter your mobile/phone number" [(ngModel)]="contactUsData.phone" type="tel"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label color="primary" stacked>Message <sup ion-text color="danger">*</sup>
+        </ion-label>
+        <ion-textarea placeholder="Enter your message" [(ngModel)]="contactUsData.message" rows='3'></ion-textarea>
+    </ion-item>
+
+
+    <br>
+  <sup ion-text color="danger">*</sup>
+  <span ion-text color="lightdark">required fields</span>
+  <br>
+  <br>
+  <button ion-button icon-left full color="primary" (click)="sendContact()">
+    Save
+  </button>
+</div>
+</ion-content>

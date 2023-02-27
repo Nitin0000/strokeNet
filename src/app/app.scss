@@ -1,0 +1,155 @@
+@import '../assets/fonts/lato';
+
+body{
+    font-family: 'Lato Regular' !important;
+    letter-spacing: 0px !important;
+    color : #737373 !important;
+}
+
+.border-radius-top{
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+}
+
+.border-radius-bottom{
+    border-bottom-right-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+}
+
+.hide 
+{
+    display: none !important;
+}
+.show 
+{
+    display: block !important;
+}
+
+.fab-ios, .fab-md{
+        box-shadow: rgba(0, 0, 0, 0.14) 0px 0px 5px 3px !important; 
+}
+
+.custom-popover {
+  width: 100%;
+}
+.custom-popover .popover-content {
+  width: 70% !important;
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+  padding:10px;
+  box-shadow: 0px 4px 5px rgba(0,0,0,0.4);
+}
+
+.noDataPlaceholder{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    color: #ccc;
+    font-weight: bold;
+}
+.noDataPlaceholder ion-icon{
+    font-size: 100px !important;
+}
+.noDataPlaceholderText{
+    font-size: 18px;
+}
+
+button{
+    box-shadow: none !important;
+    text-transform: none !important; 
+}
+
+.alert-radio-label{
+    font-family: "Lato Regular" !important;
+}
+.alert-message{
+    font-family: "Lato Regular" !important;
+}
+.alert-button .button-inner{
+    font-family: "Lato Regular" !important;
+}
+
+.sidemenuData{
+    .userinfo{
+        padding-top: 5px;
+        padding-bottom: 15px;
+        h3{
+            margin:0px;
+            font-size: 16px;
+            font-weight: normal;
+            font-family: "Lato Regular" !important;
+        }
+        h1{
+            margin:0px;
+            margin-bottom: 0px;
+            font-size: 24px;
+            color: color($colors, "primary");
+        }
+    }
+
+    .item-inner{
+        border-bottom: 0px !important;
+    }   
+    .item{
+        font-family: 'Lato Light' !important;
+        font-weight: bold;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #eee !important;
+        color: #737373;
+    }
+}
+
+.action-sheet-button{
+    span{
+        color: color($colors, primary) !important;
+        font-family: 'Lato Regular' !important;
+        font-size: 16px !important;
+    }
+}
+
+ion-toolbar-md.custom_tabs{
+    max-height: 45px !important;
+    min-height: 45px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    box-shadow: none !important;
+
+}
+ion-toolbar.custom_tabs{
+    max-height: 45px !important;
+    min-height: 45px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    box-shadow: none !important;
+    border-bottom: 0px !important;
+    background: none !important;
+
+    .tabs{
+        text-align: center;
+        font-weight: bold;
+        font-family: "Lato Bold";
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        color : color($colors, lightdark);
+        padding: 0px !important;
+        margin:0px !important;
+        background : #48486d !important;
+        color: color($colors, light) !important;
+    }
+    
+    .tabs .col{
+        padding: 16px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        margin: 0px !important;
+    }
+    .tabs .col.selected{       
+        background : color($colors, light) !important;
+        color: color($colors, primary) !important;
+    }
+
+
+    
+
+
+}

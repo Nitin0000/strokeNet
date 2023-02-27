@@ -1,0 +1,62 @@
+page-patient-mrs {
+    .toolbar-title-ios{
+        font-family:'Lato Black' !important;
+        text-transform: none !important;
+    }
+    .toolbar-title-md{
+        font-family:'Lato Black' !important;
+        text-transform: none !important;
+        font-size: 1.7rem !important;
+    }
+
+    ion-item.option_title{
+        padding:6px 10px !important;
+        .item-inner{
+            border-bottom: none !important;
+        }
+        border-bottom: 1px solid #eee !important;
+    }
+
+    ion-note.mrs_points{
+        font-weight: bold;
+        font-family: 'Lato Bold';
+        font-size: 30px;
+    }
+
+    ion-list.option_box{
+        border: 1px solid #eee;
+        border-radius: 10px !important;
+    }
+    ion-list {
+        ion-item.item-radio-checked{
+            background: color($colors, primary);
+            ion-label{
+                color: #fff !important;
+            }            
+
+            .radio-ios .radio-checked .radio-inner{
+                border-color: #fff !important;
+            }
+            .radio-md .radio-checked {
+                border-color: #fff !important;
+            }
+            .radio-md .radio-inner{
+                background-color: #fff !important;
+            }
+        }
+        ion-item{
+            .item-inner{
+                border-bottom: none !important;
+            }
+            border-bottom: 1px solid #eee !important;
+            font-family: 'Lato Regular';
+            font-size: 14px !important;
+            ion-note{
+                min-width: 20px;
+                font-weight: bold;
+                font-size: 17px;
+                text-align: center;
+            }
+        }  
+    }
+}

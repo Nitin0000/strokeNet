@@ -1,0 +1,66 @@
+<ion-toolbar color="primary">
+  <ion-navbar>
+    <ion-buttons end right>
+      <button ion-button icon-left color="light"
+      (tap)="closeModal()">
+      <ion-icon name="md-close"></ion-icon> Close
+    </button>
+      <!-- <button (click)="closeModal()" clear large icon-end ion-button color="light">
+        <ion-icon name="md-close"></ion-icon>
+      </button> -->
+    </ion-buttons>
+    <ion-title style="text-transform: none;">{{medicationType ? medicationType : 'Choose Medication'}}</ion-title>
+  </ion-navbar>
+</ion-toolbar>
+<ion-content padding>
+  <div class="formsection" style="padding-top: 40px;" *ngIf="addPatientMedicationData">
+    
+    <ion-item *ngIf="addPatientMedicationData.dose_value">
+      Dose
+      <ion-note item-end color="primary">
+        {{addPatientMedicationData.dose_value}}mg/kg
+      </ion-note>
+    </ion-item>
+
+    <!-- [disabled]="disableWeightField" -->
+    <ion-item>
+      <ion-label color="primary" stacked>Body Weight (kgs)
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-input  (keyup)="getDoseValues()" [(ngModel)]="patientWeight" type="tel" placeholder="Enter patient's body weight"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>tPA start time
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-datetime [disabled]="addPatientMedicationData.door_to_needle_time" [(ngModel)]="addPatientMedicationData.door_to_needle_time" placeholder="Enter time to start" displayFormat="DD-MM-YYYY hh:mm a" pickerFormat="DD-MM-YYYY hh:mm a+5:30"></ion-datetime>
+  </ion-item>
+
+    <ion-item  *ngIf="addPatientMedicationData.total_dose">
+      Total Dose
+      <ion-note item-end color="primary">
+        {{addPatientMedicationData.total_dose}}mg
+      </ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="addPatientMedicationData.bolus_dose && addPatientMedicationData.medicine == 'rtPA'">
+      10% Bolus dose over one minute
+      <ion-note item-end color="primary">
+        {{addPatientMedicationData.bolus_dose}}mg
+      </ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="addPatientMedicationData.infusion_dose && addPatientMedicationData.medicine == 'rtPA'">
+      Infusion dose over 1 hour
+      <ion-note item-end color="primary">
+        {{addPatientMedicationData.infusion_dose}}mg
+      </ion-note>
+    </ion-item>
+    <br>
+    <br>
+    <button ion-button round (click)="(addPatientMedicationData.door_to_needle_time == undefined || addPatientMedicationData.door_to_needle_time == null) ? showAlertforNeedleTime() : savePatientMedications()" icon-left full color="success">
+      Update
+    </button>
+  </div>
+</ion-content>

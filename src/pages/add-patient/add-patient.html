@@ -1,0 +1,167 @@
+<ion-toolbar color="primary">
+  <ion-buttons end right>
+    <button
+      (click)="closeModal()"
+      clear
+      large
+      icon-end
+      ion-button
+      color="light"
+    >
+      <ion-icon name="md-close"></ion-icon>
+    </button>
+  </ion-buttons>
+  <ion-title>Add Patient</ion-title>
+</ion-toolbar>
+<ion-content padding>
+  <div class="formsection" style="padding-top: 40px">
+    <ion-item>
+      <ion-label color="primary" stacked
+        >Name of the patient
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-input
+        type="text"
+        [(ngModel)]="addPatientData.name"
+        placeholder="Enter patient name"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked
+        >Date/Time of Stroke
+        <sup ion-text color="danger">*</sup>
+      </ion-label>
+      <ion-datetime
+        max="{{currentLocalDate}}"
+        (tap)="getCurrentTime()"
+        [(ngModel)]="addPatientData.datetime_of_stroke"
+        placeholder="Date time of stroke"
+        displayFormat="DD-MM-YYYY hh:mm a"
+        pickerFormat="DD-MM-YYYY hh:mm a"
+      ></ion-datetime>
+    </ion-item>
+
+    <ion-row>
+      <ion-col style="padding-left: 0px">
+        <ion-item>
+          <ion-label color="primary" stacked>Age </ion-label>
+          <ion-input
+            type="tel"
+            [(ngModel)]="addPatientData.age"
+            placeholder="Enter patient age"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item class="sex_label_item" style="border: none !important">
+          <ion-label>Sex </ion-label>
+        </ion-item>
+        <ion-select
+          class="sexfield"
+          [(ngModel)]="addPatientData.gender"
+          interface="popover"
+          placeholder="Select"
+        >
+          <ion-option value="male">Male</ion-option>
+          <ion-option value="female">Female</ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-8 style="padding-left: 0px">
+        <ion-item>
+          <ion-label color="primary" stacked
+            >COVID Checklist<sup>*</sup>
+          </ion-label>
+          <ion-input
+            [(ngModel)]="addPatientData.covid_score"
+            disabled
+            type="tel"
+            placeholder="Calculate Score"
+          ></ion-input>
+        </ion-item>
+
+        <p
+          ion-text
+          color="success"
+          *ngIf="addPatientData.covid_score && addPatientData.covid_score == 0"
+        >
+          No Risk
+        </p>
+        <p
+          ion-text
+          color="warning"
+          *ngIf="addPatientData.covid_score && (addPatientData.covid_score > 0 && addPatientData.covid_score <= 5)"
+        >
+          Mide to Moderate Risk
+        </p>
+        <p
+          ion-text
+          color="danger"
+          *ngIf="addPatientData.covid_score && (addPatientData.covid_score >= 6)"
+        >
+          High Risk
+        </p>
+      </ion-col>
+      <ion-col col-4>
+        <button
+          style="margin-top: 25px !important; margin-right: 15px !important"
+          ion-button
+          small
+          (click)="openCovidCheckListModal()"
+          color="dark"
+        >
+          Check Score
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" stacked
+            >Weakness side
+            <sup ion-text color="danger">*</sup>
+          </ion-label>
+          <ion-select
+            interface="popover"
+            [(ngModel)]="addPatientData.weakness_side"
+            placeholder="Select"
+          >
+            <ion-option value="left">Left</ion-option>
+            <ion-option value="right">Right</ion-option>
+            <ion-option value="unknown">Unknown</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" stacked>NIHSS(Admission)</ion-label>
+          <ion-input
+            type="tel"
+            [(ngModel)]="addPatientData.nihss_admission"
+            placeholder="Enter Admission NIHSS"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <br />
+    <sup ion-text color="danger">*</sup>
+    <span ion-text color="lightdark">required fields</span>
+    <br />
+    <br />
+    <button
+      ion-button
+      round
+      (click)="addPatient()"
+      icon-left
+      full
+      color="success"
+    >
+      Save Patient
+    </button>
+  </div>
+</ion-content>

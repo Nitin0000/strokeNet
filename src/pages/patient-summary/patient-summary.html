@@ -1,0 +1,509 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Summary</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="patient && patient.id">
+
+    <div class="patient_info">     
+      <!-- <h2 ion-text color="light">{{patient.show_original_name ? patient.name :  patient.patient_code}}</h2>
+
+      <p class="patient_age_gender" ion-text color="stable">
+        <b><span *ngIf="patient.gender">{{patient.gender | capitalizefirst}}, </span><span *ngIf="patient.age > 0">{{patient.age}} years old</span></b></p> -->
+
+        <ion-row>
+          <ion-col text-left style="padding-left: 20px;">
+            <h2 ion-text color="light">{{patient.show_original_name ? patient.name :  patient.patient_code}}</h2>
+            <p style="margin:0px; margin-bottom: 5px;" *ngIf="userData.user_id == patient.created_by" ion-text color="light">{{ patient.patient_code}}</p>    
+            <p class="patient_age_gender" ion-text color="stable">
+              <b><span *ngIf="patient.gender">{{patient.gender | capitalizefirst}}, </span><span *ngIf="patient.age > 0">{{patient.age}} years old</span></b>
+            </p>
+          </ion-col>
+  
+          <!-- COVIS Statuses-->
+          <ion-col col-3 text-center style="padding-top: 25px;">
+
+            <p ion-text color="light" style="padding:0px; margin:0px; font-size: 8px;">COVID STATUS</p>
+            <h1 ion-text color="success" *ngIf="patient.covid_score == 0" class="covid_status">●</h1>
+  
+            <p ion-text color="light" *ngIf="patient.covid_score == 0"
+              style="padding:0px; margin:0px; margin-top: -12px; font-size: 11px;">No Risk</p>
+  
+            <h1 ion-text color="warning"
+              *ngIf="patient.covid_score && (patient.covid_score > 0 && patient.covid_score <= 5)"
+              class="covid_status">●</h1>
+            <p ion-text color="light"
+              *ngIf="patient.covid_score && (patient.covid_score > 0 && patient.covid_score <= 5)"
+              style="padding:0px; margin:0px; margin-top: -12px; font-size: 11px;">Moderate Risk</p>
+  
+  
+            <h1 ion-text color="danger" *ngIf="patient.covid_score && (patient.covid_score >= 6)"
+              class="covid_status">●</h1>
+            <p ion-text color="light" *ngIf="patient.covid_score && (patient.covid_score >= 6)"
+              style="padding:0px; margin:0px; margin-top: -12px; font-size: 11px;">High Risk</p>
+  
+  
+          </ion-col>
+  
+        </ion-row>
+
+        
+          <div class="buttons_sections" padding style="margin-bottom: 0px; padding-bottom: 0px;">       
+            <ion-row>
+              <ion-col>
+                <button ion-button color="primary" block round (click)="goToPatientAnalysis(patient.id)">Stroke Pathway</button>
+              </ion-col>
+              <ion-col>
+                <button ion-button color="light" block round (click)="goToPatientAnalysisDiscussion(patient.id)">Discussion</button>
+              </ion-col>
+            </ion-row>                      
+          </div>
+    </div>
+
+    
+
+    <div style="background: #f5f5f5" padding *ngIf="patient.patient_conclusion_outcomes && patient.patient_conclusion_outcomes.length > 0">
+      <ion-card style="margin:0px !important; width:100%">
+        <ion-item style="border-bottom: 1px solid #ccc;">          
+          <h2 ion-text color="primary">Conclusions</h2>
+        </ion-item>
+        <ion-item text-wrap *ngFor="let conclusion of patient.patient_conclusion_outcomes">          
+          <p ion-text color="primary" style="font-size: 17px;">
+            {{conclusion.conclusion_type}} - {{conclusion.conclusion_value}}
+          </p>
+          <p>
+            - <b>{{conclusion.user_name}}</b>
+          </p>
+          <ion-note>
+            {{conclusion.created}}
+          </ion-note>
+        </ion-item>  
+      </ion-card>
+  </div>
+
+
+  <ion-list class="menu_list">
+    <ion-item-divider color="secondary">
+      Patient Details      
+    </ion-item-divider>
+
+    <ion-item>
+      Time of onset
+      <ion-note item-end color="primary">
+        {{patient.datetime_of_stroke_formatted ? patient.datetime_of_stroke_formatted: 'NA'}}
+      </ion-note>
+    </ion-item>
+
+
+    <ion-item *ngIf="patient.door_to_ct_time">
+      Door to CT Time
+      <ion-note item-end color="primary">
+        {{patient.door_to_ct_time ? patient.door_to_ct_time: 'NA'}}
+      </ion-note>
+    </ion-item>
+
+
+    <ion-item>
+      Date of Admission
+      <ion-note item-end color="primary">
+        {{patient.created ? patient.created: 'NA'}}
+      </ion-note>
+    </ion-item>
+
+    
+
+    <ion-row>
+      <ion-col>
+        <ion-item text-wrap>
+          Body weight
+          <ion-note item-end color="primary" color="primary">
+            {{patient.patient_basic_details.body_weight ? patient.patient_basic_details.body_weight: 'NA'}}
+          </ion-note>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item text-wrap>
+          Blood Group
+          <ion-note item-end color="primary" color="primary">
+            {{patient.patient_basic_details.blood_group ? patient.patient_basic_details.blood_group: 'NA'}}
+          </ion-note>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-item>
+      <ion-row>
+        <ion-col text-center>
+          <p>SP</p>
+          <h2>{{patient.patient_basic_details.bp_x ? patient.patient_basic_details.bp_x: 'NA'}}</h2>
+        </ion-col>
+        <ion-col text-center>
+          <p>DP</p>
+          <h2>{{patient.patient_basic_details.bp_y ? patient.patient_basic_details.bp_y: 'NA'}}</h2>
+        </ion-col>
+        <ion-col text-center>
+          <p>RBS</p>
+          <h2>{{patient.patient_basic_details.rbs ? patient.patient_basic_details.rbs: 'NA'}}</h2>
+        </ion-col>
+        <ion-col text-center>
+          <p>INR</p>
+          <h2>{{patient.patient_basic_details.inr ? patient.patient_basic_details.inr: 'NA'}}</h2>
+        </ion-col>
+        <ion-col text-center>
+          <p>Aspects</p>
+          <h2>{{patient.patient_basic_details.aspects ? patient.patient_basic_details.aspects: 'NA'}}</h2>
+        </ion-col>
+      </ion-row>
+      
+    </ion-item>
+
+    <ion-item text-wrap>
+      Is a Wakeup Stroke
+      <ion-note item-end color="primary" color="primary">
+        {{patient.patient_basic_details.is_wakeup_stroke ? "Yes": 'No'}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item text-wrap>
+      Is Hospital Stroke
+      <ion-note item-end color="primary" color="primary">
+        {{patient.patient_basic_details.is_hospital_stroke ? "Yes": 'No'}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item text-wrap *ngIf="patient.patient_basic_details.weakness_side">
+      Weakness Side
+      <ion-note item-end color="primary" color="primary">
+        {{patient.patient_basic_details.weakness_side ? patient.patient_basic_details.weakness_side: 'NA'}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item text-wrap *ngIf="patient.patient_basic_details.co_morbidities">
+      Co-morbidities
+      <ion-note item-end color="primary" color="primary">
+        {{patient.patient_basic_details.co_morbidities ? patient.patient_basic_details.co_morbidities: 'NA'}}
+      </ion-note>
+    </ion-item>
+
+    <ion-item text-wrap *ngIf="patient.patient_basic_details.similar_episodes_in_past">
+      Similar episodes in past
+      <ion-note item-end color="primary" color="primary">
+        {{patient.patient_basic_details.similar_episodes_in_past ? patient.patient_basic_details.similar_episodes_in_past: 'NA'}}
+      </ion-note>
+    </ion-item>
+
+
+    <ion-item text-wrap *ngIf="patient.patient_basic_details.inclusion_exclusion_assessed">
+      Inclusion/Exclusion Assessed
+      <p ion-text color="primary">
+        {{patient.patient_basic_details.inclusion_exclusion_assessed ? patient.patient_basic_details.inclusion_exclusion_assessed: 'NA'}}
+      </p>
+    </ion-item>
+  </ion-list>
+
+
+  <ion-list class="menu_list">
+    <ion-item-divider color="secondary">
+      Scan Times      
+    </ion-item-divider>
+    <ion-item>
+      CT/CTA
+      <ion-note item-end color="primary">
+        {{patient.patient_scan_times.ct_scan_time ? patient.patient_scan_times.ct_scan_time_formatted: 'NA'}}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      MRI/MRA
+      <ion-note item-end color="primary">
+        {{patient.patient_scan_times.mr_mra_time ? patient.patient_scan_times.mr_mra_time_formatted: 'NA'}}
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      DSA
+    <ion-note item-end color="primary">
+        {{patient.patient_scan_times.dsa_time_completed ? patient.patient_scan_times.dsa_time_completed_formatted: 'NA'}}
+      </ion-note>
+    </ion-item>
+    
+  </ion-list>
+  
+
+    <ion-list class="menu_list">
+      <ion-item-divider color="secondary">
+        Follow Up
+      </ion-item-divider>
+
+      <ion-list-header>
+        NIHSS
+      </ion-list-header>
+
+      <ion-item *ngIf="patient.patient_nihss && patient.patient_nihss.admission">
+        Admission
+        <ion-note item-end color="primary">
+          {{patient.patient_nihss.admission.nihss_value ? patient.patient_nihss.admission.nihss_value : 'NA'}}
+        </ion-note>
+      </ion-item>
+
+      <ion-item *ngIf="patient.patient_nihss && patient.patient_nihss['24_hours']">
+        24 hours
+        <ion-note item-end color="primary">
+          {{patient.patient_nihss['24_hours'].nihss_value ? patient.patient_nihss['24_hours'].nihss_value : 'NA'}}
+        </ion-note>
+      </ion-item>
+
+      <ion-item
+        *ngIf="patient.patient_nihss && patient.patient_nihss.discharge && patient.patient_nihss.discharge.nihss_value">
+        Discharge
+        <ion-note item-end color="primary">
+          {{patient.patient_nihss.discharge.nihss_value ?  patient.patient_nihss.discharge.nihss_value : 'NA'}}
+        </ion-note>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-list class="menu_list">
+    <ion-list-header>
+      MRS
+    </ion-list-header>
+
+    <ion-item *ngIf="patient.patient_mrs && patient.patient_mrs.discharge && patient.patient_mrs.discharge.mrs_points">
+      Admission
+      <ion-note item-end color="primary">{{patient.patient_mrs.discharge.mrs_points ? patient.patient_mrs.discharge.mrs_points : 'NA'}}</ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="patient.patient_mrs && patient.patient_mrs['1_month'].discharge && patient.patient_mrs['1_month'].discharge.mrs_points">
+      1 month
+      <ion-note item-end color="primary">{{patient.patient_mrs['1_month'].mrs_points ? patient.patient_mrs['1_month'].mrs_points : 'NA'}}</ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="patient.patient_mrs && patient.patient_mrs['3_months'] && patient.patient_mrs['3_months'].mrs_points">
+      3 months
+      <ion-note item-end color="primary">{{patient.patient_mrs['3_months'].mrs_points ? patient.patient_mrs['3_months'].mrs_points : 'NA'}}</ion-note>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list class="complicationsBox">
+    <ion-item-divider color="secondary">
+      Complications
+    </ion-item-divider>
+
+    <ng-container  *ngIf="patient.patient_complications.bed_sore">
+      <ion-list-header>Bed Sore</ion-list-header>
+
+      <ion-item>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              Site:  <span ion-text color="dark">{{patient.patient_complications.bed_sore_site}}</span>
+            </ion-item>
+            <ion-item>
+              Degree:  <span ion-text color="dark">{{patient.patient_complications.bed_sore_degree}}</span>
+            </ion-item>
+            <ion-item>
+              Duration:  <span ion-text color="dark">{{patient.patient_complications.bed_sore_duration}}</span>
+            </ion-item>
+          </ion-col>
+          <ion-col col-4 *ngIf="patient.patient_complications.bed_sore_photo">
+              <img [imageViewer]="patient.patient_complications.bed_sore_photo_full" [src]="patient.patient_complications.bed_sore_photo_thumb" />
+              <img [src]="patient.patient_complications.bed_sore_photo_full" style="display:none" />
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ng-container>
+
+    <ng-container *ngIf="patient.patient_complications.aspiration">
+      <ion-list-header>Aspiration</ion-list-header>
+      <ion-item>
+        <ion-row>
+          <ion-col>          
+            <ion-item>
+              Duration:  <span ion-text color="dark">{{patient.patient_complications.aspiration_duration}}</span>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ng-container>
+
+    <ng-container *ngIf="patient.patient_complications.deep_vein_thormobosis">
+      <ion-list-header>Deep Vein Thormobosis</ion-list-header>
+      <ion-item>
+        <ion-row>
+          <ion-col>          
+            <ion-item>
+              Site:  <span ion-text color="dark">{{patient.patient_complications.deep_vein_thormobosis_site}}</span>
+            </ion-item>              
+          </ion-col>
+          <ion-col>                    
+            <ion-item>
+              Duration:  <span ion-text color="dark">{{patient.patient_complications.deep_vein_thormobosis_duration}}</span>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ng-container>
+
+    <ng-container *ngIf="patient.patient_complications.frozen_shoulder">
+      <ion-list-header>Frozen Shoulder</ion-list-header>
+      <ion-item>
+        <ion-row>
+          <ion-col>          
+            <ion-item>
+              Site:  <span ion-text color="dark">{{patient.patient_complications.frozen_shoulder_site}}</span>
+            </ion-item>              
+          </ion-col>
+          <ion-col>                    
+            <ion-item>
+              Duration:  <span ion-text color="dark">{{patient.patient_complications.frozen_shoulder_duration}}</span>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ng-container>
+
+    <ng-container *ngIf="patient.patient_complications.contracture">
+      <ion-list-header>Contracture</ion-list-header>
+      <ion-item>
+        <ion-row>
+          <ion-col>          
+            <ion-item>
+              Site:  <span ion-text color="dark">{{patient.patient_complications.contracture_site}}</span>
+            </ion-item>              
+          </ion-col>
+          <ion-col>                    
+            <ion-item>
+              Duration:  <span ion-text color="dark">{{patient.patient_complications.contracture_duration}}</span>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ng-container>
+
+    <ng-container *ngIf="patient.patient_complications.spasticity">
+      <ion-list-header>Spasticity</ion-list-header>
+      <ion-item>
+        <ion-row>
+          <ion-col>          
+            <ion-item>
+              Site:  <span ion-text color="dark">{{patient.patient_complications.spasticity_site}}</span>
+            </ion-item>              
+          </ion-col>
+          <ion-col>                    
+            <ion-item>
+              Duration:  <span ion-text color="dark">{{patient.patient_complications.spasticity_duration}}</span>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ng-container>
+
+    <ng-container *ngIf="patient.patient_complications.cauti">
+      <ion-list-header text-wrap>Catheter Associated Urinary Tract Infection</ion-list-header>
+      <ion-item>
+        <ion-row>
+          <ion-col>                     
+            <ion-item>
+              Duration:  <span ion-text color="dark">{{patient.patient_complications.cauti_duration}}</span>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ng-container>
+
+    <ng-container *ngIf="patient.patient_complications.others">
+      <ion-list-header>Others</ion-list-header>
+      <ion-item>
+        <ion-row>
+          <ion-col>          
+            <ion-item>
+              Site:  <span ion-text color="dark">{{patient.patient_complications.others_information}}</span>
+            </ion-item>patient
+          </ion-col>
+          <ion-col>                    
+            <ion-item>
+              Duration:  <span ion-text color="dark">{{patient.patient_complications.others_duration}}</span>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ng-container>
+
+
+  </ion-list>
+
+    <ion-list class="menu_list">
+      <ion-list-header>
+        Attached Files
+      </ion-list-header>
+
+      <ion-toolbar color="primary" class="custom_tabs">
+        <div class="row tabs">
+          <div class="col" [ngClass]="{'selected': selectedFilesTab == 'cta_ctp'}"
+            (click)="changeTab('cta_ctp', 'CT/CTA')">
+            CT/CTA
+          </div>
+          <div class="col" [ngClass]="{'selected': selectedFilesTab == 'mri'}" (click)="changeTab('mri','MRI/MRA')">
+            MRI/MRA
+          </div>
+          <div class="col" [ngClass]="{'selected': selectedFilesTab == 'ncct'}" (click)="changeTab('ncct','DSA')">
+            DSA
+          </div>
+        </div>
+      </ion-toolbar>
+
+      <div class="noDataMessage" *ngIf="currentFilesData && currentFilesData.length == 0">
+        <ion-icon name="ios-information-circle-outline"></ion-icon><br>
+        <h2>
+          No files found!
+        </h2>
+      </div>
+
+      <div class="items_section" padding>
+        <ion-grid class="items" *ngIf="currentFilesData && currentFilesData.length > 0">
+          <ion-row *ngFor="let images of array_chunk(3, currentFilesData); let i = index;">
+            <ion-col col-4 *ngFor="let image of images; let z = index;">
+              <div class="img">
+                <img *ngIf="image.file_type !== 'jpg'" (click)="viewFile(image)" #myImage src="assets/imgs/video.png">
+                <img *ngIf="image.file_type == 'jpg'" (click)="viewFile(image)" #myImage [src]="image.file_thumb">                
+              </div>
+              <p ion-text color="primary" class="user_role" *ngIf="image.user_role"><small>{{image.user_role}}</small></p>
+              <p class="user_role"><small>{{image.created}}</small></p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-list>
+
+    <p padding ion-text text-center color="lightdark">
+        Last Updated: <b>{{ patient.last_updated  | amLocale:'en' | amTimeAgo}}</b>
+      </p>
+      <br><br><br>
+
+  </div>
+</ion-content>
+
+<ion-footer style="padding:0px !important; margin: 0px !important" *ngIf="patient && patient.user_data &&  patient.user_data.user_id != userData.user_id">
+    <ion-toolbar color="light" style="padding:0px !important; margin: 0px !important">
+       <ion-grid *ngIf="patient && patient.user_data" style="padding:0px !important; margin: 0px !important">
+           <ion-row style="padding:0px !important; margin: 0px !important"> 
+             <ion-col>
+               <button ion-button full icon-left color="lightdark" (click)="callPhoneNumber(patient.user_data.phone_number);">
+                   <ion-icon *ngIf="patient.user_data.phone_number"  color="light" name="call"></ion-icon>
+                   Call
+               </button>
+             </ion-col>
+             <ion-col>
+                 <button ion-button full icon-left color="success" (click)="goToPatientAnalysisTeam(patient.id)">
+                     <ion-icon color="light" name="md-chatboxes"></ion-icon>
+                     Start Chat
+                 </button>
+             </ion-col>
+           </ion-row>      
+         </ion-grid>
+   </ion-toolbar>
+ </ion-footer>

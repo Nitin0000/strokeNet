@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>NIHSS</ion-title>
+  </ion-navbar>
+  <ion-toolbar color="primary" class="custom_tabs">
+    <div class="row tabs">
+      <div class="col" [ngClass]="{'selected': selectedTab == 'admission'}" (click)="changeTab('admission')">
+        Admission
+      </div>
+      <div class="col" [ngClass]="{'selected': selectedTab == '24_hours'}" (click)="changeTab('24_hours')">
+        24 hours
+      </div>
+      <div class="col" [ngClass]="{'selected': selectedTab == 'discharge'}" (click)="changeTab('discharge')">
+        Discharge
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+
+  <ion-input class="custom_input" type="tel" [(ngModel)]="currentNIHSSvalue" placeholder="Enter NIHSS Score"></ion-input>
+  
+  <br>
+  <button ion-button icon-left round full color="primary" (click)="updateNIHSSScore()">
+    Save NIHSS
+  </button>
+
+  <div text-center class="or_text">
+    OR
+  </div>
+
+  <button ion-button icon-left round full color="lightdark" (click)="openNIHSSCalculator()">
+    Calculate NIHSS
+  </button>
+
+</ion-content>

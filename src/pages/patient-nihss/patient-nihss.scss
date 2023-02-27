@@ -1,0 +1,16 @@
+page-patient-nihss {
+    .custom_input{
+        border:1px solid #eee;
+        padding: 6px 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: color($colors, primary);
+        font-family: 'Lato Bold';
+    }
+
+    .or_text{
+        padding: 10px;
+        font-weight: bold;
+        color: color($colors, lightdark);
+    }
+}
